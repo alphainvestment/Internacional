@@ -125,9 +125,10 @@ BUCKETS_HISTOGRAMA = [
 ]
 
 # --------------------------------------------------------------------------
-# S9 (fase 3) — placeholders de configuración
+# S9 (fase 3)
 # --------------------------------------------------------------------------
-FINNHUB_RATE_LIMIT_SLEEP = 1.1
+FINNHUB_API_URL_CALENDAR = "https://finnhub.io/api/v1/calendar/earnings"
+FINNHUB_RATE_LIMIT_SLEEP = 1.1  # solo relevante si se agregan llamadas por-reporte
 
 # --------------------------------------------------------------------------
 # Descarga / robustez

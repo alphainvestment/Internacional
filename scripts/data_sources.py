@@ -228,5 +228,32 @@ def descargar_masivo(tickers, periodo=config.PERIODO_DESCARGA_DEFAULT, chunk_siz
     return datos, fallidos
 
 
+def descargar_earnings_finnhub(api_key, fecha_desde, fecha_hasta):
+    """Descarga el calendario de earnings de Finnhub para [fecha_desde, fecha_hasta]
+    (strings YYYY-MM-DD, inclusive). Un único call cubre toda la semana --
+    el endpoint de calendario no requiere un call por ticker, así que el
+    rate limit free (60/min) sobra sin necesidad de sleep entre calls.
+
+    Devuelve la lista cruda de reportes (dicts de Finnhub), o None si la
+    key no está configurada o la descarga falla tras los reintentos.
+    """
+    if not api_key:
+        _log("FINNHUB_API_KEY no configurada; se omite la temporada de resultados (S9)")
+        return None
+
+    params = {"from": fecha_desde, "to": fecha_hasta, "token": api_key}
+    for intento in range(config.INTENTOS_DESCARGA):
+        try:
+            resp = requests.get(config.FINNHUB_API_URL_CALENDAR, params=params, timeout=15)
+            resp.raise_for_status()
+            data = resp.json()
+            return data.get("earningsCalendar", [])
+        except Exception as e:
+            _log(f"Finnhub error (intento {intento + 1}/{config.INTENTOS_DESCARGA}): {e}")
+            if intento < config.INTENTOS_DESCARGA - 1:
+                time.sleep(config.BACKOFF_SEGUNDOS[min(intento, len(config.BACKOFF_SEGUNDOS) - 1)])
+    return None
+
+
 def limpiar_cache():
     _cache.clear()

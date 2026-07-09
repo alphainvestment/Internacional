@@ -91,6 +91,13 @@ def main(referencia=None):
         _log("ERROR: núcleo (S1 y/o S3) sin datos válidos esta semana. Abortando sin publicar.")
         return 1
 
+    lunes, viernes = resultado["semana"]["lunes"], resultado["semana"]["viernes"]
+    _log("Descargando calendario de earnings (Finnhub)...")
+    earnings_crudos = data_sources.descargar_earnings_finnhub(
+        os.environ.get("FINNHUB_API_KEY"), lunes.strftime("%Y-%m-%d"), viernes.strftime("%Y-%m-%d")
+    )
+    resultado["s9"] = calculos.calcular_s9(earnings_crudos, constituyentes, datos_masivos, lunes, viernes)
+
     _log("Generando narrativa por reglas...")
     textos = narrativa.generar_informe(resultado)
 
@@ -114,6 +121,7 @@ def main(referencia=None):
         "lectura_amplitud": textos["lectura_amplitud"],
         "lectura_distribucion": textos["lectura_distribucion"],
         "lectura_top_movers": textos["lectura_top_movers"],
+        "lectura_earnings": textos["lectura_earnings"],
         "s1": s1,
         "s2": resultado["s2"],
         "s3": s3,
@@ -121,6 +129,7 @@ def main(referencia=None):
         "s6": resultado["s6"],
         "s7": resultado["s7"],
         "s8": resultado["s8"],
+        "s9": resultado["s9"],
     }
 
     _log(f"Renderizando {salida_informe}...")

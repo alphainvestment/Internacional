@@ -439,6 +439,92 @@ def calcular_s8(s6, top_n=None):
     return resultado
 
 
+def calcular_s9(earnings_crudos, constituyentes, datos_masivos, lunes, viernes):
+    """Temporada de resultados (fase 3). earnings_crudos: lista cruda de
+    data_sources.descargar_earnings_finnhub() (o None si Finnhub no
+    respondió -- en ese caso la sección queda "no disponible", sin abortar
+    el resto del informe).
+
+    La reacción de precio se calcula con los datos de yfinance ya
+    descargados para S6 (datos_masivos), no con llamadas extra a Finnhub.
+    """
+    resultado = {"disponible": False}
+    if earnings_crudos is None:
+        return resultado
+
+    reportes = []
+    for item in earnings_crudos:
+        ticker = item.get("symbol")
+        info = (constituyentes or {}).get(ticker)
+        if info is None:
+            continue  # no es del S&P 500 (o no está en el CSV)
+
+        eps_actual = item.get("epsActual")
+        eps_estimado = item.get("epsEstimate")
+        if eps_actual is None or eps_estimado is None:
+            continue  # sin datos de EPS todavía
+
+        try:
+            fecha_reporte = pd.Timestamp(item.get("date"))
+        except Exception:
+            continue
+        if not (lunes <= fecha_reporte <= viernes):
+            continue  # fuera de la semana reportada (por las dudas)
+
+        sorpresa_pct = None
+        if eps_estimado:
+            sorpresa_pct = (eps_actual - eps_estimado) / abs(eps_estimado)
+
+        hora = (item.get("hour") or "").lower()  # 'bmo' | 'amc' | 'dmh' | ''
+        if hora == "bmo":
+            timing = "mismo día"
+            fecha_reaccion_base = fecha_reporte
+        else:
+            timing = "día sig."  # amc, dmh o timing desconocido: se usa el día siguiente
+            fecha_reaccion_base = fecha_reporte + pd.Timedelta(days=1)
+
+        var_precio = None
+        df = (datos_masivos or {}).get(ticker)
+        if df is not None:
+            cierre = serie_cierre(df)
+            fecha_posterior = next(
+                (fecha_reaccion_base + pd.Timedelta(days=d) for d in range(4)
+                 if (fecha_reaccion_base + pd.Timedelta(days=d)) in cierre.index),
+                None,
+            )
+            fecha_previa_reporte = next(
+                (fecha_reporte - pd.Timedelta(days=d) for d in range(1, 6)
+                 if (fecha_reporte - pd.Timedelta(days=d)) in cierre.index),
+                None,
+            )
+            if fecha_posterior is not None and fecha_previa_reporte is not None:
+                var_precio = float(cierre.loc[fecha_posterior] / cierre.loc[fecha_previa_reporte] - 1)
+
+        reportes.append({
+            "ticker": ticker,
+            "nombre": info["nombre"],
+            "fecha": fecha_reporte,
+            "eps_actual": eps_actual,
+            "eps_estimado": eps_estimado,
+            "sorpresa_pct": sorpresa_pct,
+            "timing": timing,
+            "var_precio": var_precio,
+        })
+
+    reportes.sort(key=lambda r: r["fecha"])
+    con_sorpresa = [r for r in reportes if r["sorpresa_pct"] is not None]
+    beats = sum(1 for r in con_sorpresa if r["sorpresa_pct"] > 0)
+
+    resultado.update({
+        "disponible": True,
+        "reportes": reportes,
+        "n_reportes": len(reportes),
+        "pct_beats": (beats / len(con_sorpresa)) if con_sorpresa else None,
+        "sorpresa_media": float(np.mean([r["sorpresa_pct"] for r in con_sorpresa])) if con_sorpresa else None,
+    })
+    return resultado
+
+
 def calcular_todo(datos, fred_10y=None, referencia=None, datos_masivos=None, constituyentes=None):
     """Orquesta S1-S8 sobre los dicts de datos ya descargados."""
     vacio_amplitud = {"disponible": False}

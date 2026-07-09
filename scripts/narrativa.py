@@ -308,6 +308,33 @@ def lectura_top_movers(s8):
 
 
 # --------------------------------------------------------------------------
+# Lectura S9 (temporada de resultados) - fase 3
+# --------------------------------------------------------------------------
+
+def lectura_earnings(s9):
+    if not s9.get("disponible"):
+        return None
+    n = s9.get("n_reportes", 0)
+    if n == 0:
+        return "No hubo reportes de resultados de compañías del S&P 500 durante la semana."
+
+    frase = f"Reportaron {n} compañías del S&P 500 en la semana"
+    if s9.get("pct_beats") is not None:
+        frase += f", con {_fmt_pct(s9['pct_beats'], decimales=0, signo=False)} superando el estimado de EPS"
+    if s9.get("sorpresa_media") is not None:
+        frase += f" y una sorpresa media de {_fmt_pct(s9['sorpresa_media'])}"
+    frase += "."
+
+    if s9.get("pct_beats") is not None:
+        if s9["pct_beats"] > 0.7:
+            frase += " La proporción de beats fue alta, coherente con una temporada de resultados sólida."
+        elif s9["pct_beats"] < 0.4:
+            frase += " La proporción de beats fue baja, una señal de cautela en la temporada de resultados."
+
+    return frase
+
+
+# --------------------------------------------------------------------------
 # Resumen ejecutivo y claves de la semana
 # --------------------------------------------------------------------------
 
@@ -405,6 +432,7 @@ def generar_informe(resultado):
     s6 = resultado.get("s6", {"disponible": False})
     s7 = resultado.get("s7", {"disponible": False})
     s8 = resultado.get("s8", {"disponible": False})
+    s9 = resultado.get("s9", {"disponible": False})
     spx = s1["spx"]
     vix = s1.get("vix")
 
@@ -437,4 +465,5 @@ def generar_informe(resultado):
         "lectura_amplitud": lectura_amplitud(s6),
         "lectura_distribucion": lectura_distribucion(s7),
         "lectura_top_movers": lectura_top_movers(s8),
+        "lectura_earnings": lectura_earnings(s9),
     }
