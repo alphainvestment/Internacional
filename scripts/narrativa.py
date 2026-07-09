@@ -24,12 +24,18 @@ def _clip(x, lo, hi):
 # Régimen de la semana y título
 # --------------------------------------------------------------------------
 
-def regimen_semana(var_spx, sectores_positivos, total_sectores):
-    """Clasifica el régimen de la semana. Regla v1 (spec): se usa
-    "≥7 de 11 sectores en positivo" como proxy de "amplitud > 55%" porque
-    la amplitud de mercado real (S6) recién se calcula en fase 2.
+def regimen_semana(var_spx, sectores_positivos, total_sectores, amplitud_mercado=None):
+    """Clasifica el régimen de la semana.
+
+    Desde fase 2 usa la amplitud de mercado real (S6, % de componentes del
+    S&P 500 en positivo) cuando está disponible: "amplitud > 55%" / "< 45%"
+    tal como especifica el spec. Si S6 no está disponible esa semana, cae al
+    proxy de v1 ("≥7 de 11 sectores en positivo").
     """
-    if total_sectores:
+    if amplitud_mercado is not None:
+        amplia = amplitud_mercado > 0.55
+        concentrada = amplitud_mercado < 0.45
+    elif total_sectores:
         amplia = sectores_positivos >= 7
         concentrada = (sectores_positivos / total_sectores) < 0.45
     else:
@@ -229,10 +235,83 @@ def lectura_macro(s3):
 
 
 # --------------------------------------------------------------------------
+# Lecturas S6-S8 (amplitud, distribución, ganadores/perdedores) - fase 2
+# --------------------------------------------------------------------------
+
+def lectura_amplitud(s6):
+    if not s6.get("disponible"):
+        return None
+    amplitud = s6["amplitud_pct"]
+    spread_vs_indice = None
+    if s6.get("var_indice") is not None:
+        spread_vs_indice = s6["retorno_mediana"] - s6["var_indice"]
+
+    if amplitud > 0.55:
+        frase = f"La amplitud fue amplia: {_fmt_pct(amplitud, decimales=0, signo=False)} de los componentes del S&P 500 terminaron en positivo."
+    elif amplitud < 0.45:
+        frase = f"La amplitud fue débil: solo {_fmt_pct(amplitud, decimales=0, signo=False)} de los componentes del S&P 500 terminaron en positivo."
+    else:
+        frase = f"La amplitud fue intermedia, con {_fmt_pct(amplitud, decimales=0, signo=False)} de los componentes en positivo."
+
+    if spread_vs_indice is not None:
+        if spread_vs_indice > 0.005:
+            frase += " La compañía mediana superó al índice, típico de una suba sostenida por la base del mercado."
+        elif spread_vs_indice < -0.005:
+            frase += " La compañía mediana quedó por detrás del índice, señal de que el resultado del S&P 500 dependió de un grupo acotado de nombres grandes."
+
+    if s6.get("pct_sobre_ema200") is not None:
+        frase += f" {_fmt_pct(s6['pct_sobre_ema200'], decimales=0, signo=False)} de los componentes con historia suficiente cotiza por encima de su EMA de 200 ruedas."
+
+    return frase
+
+
+def lectura_distribucion(s7):
+    if not s7.get("disponible"):
+        return None
+    buckets = {b["etiqueta"]: b["conteo"] for b in s7["buckets"]}
+    extremos = buckets.get("< −5%", 0) + buckets.get("> +5%", 0)
+    centro = buckets.get("−2% a 0%", 0) + buckets.get("0% a +2%", 0)
+    total = s7["total"] or 1
+
+    if extremos / total > 0.15:
+        return "La distribución muestra colas gruesas: una porción relevante de las compañías tuvo movimientos semanales superiores al 5% en cualquier dirección."
+    if centro / total > 0.6:
+        return "La distribución está concentrada cerca de cero: la mayoría de las compañías tuvo una semana de variación acotada."
+    return "La distribución de retornos semanales fue relativamente pareja entre los distintos rangos, sin una concentración marcada."
+
+
+def lectura_top_movers(s8):
+    if not s8.get("disponible"):
+        return None
+
+    def sector_predominante(filas):
+        conteo = {}
+        for f in filas:
+            conteo[f["sector"]] = conteo.get(f["sector"], 0) + 1
+        if not conteo:
+            return None, 0
+        sector, n = max(conteo.items(), key=lambda kv: kv[1])
+        return sector, n
+
+    sector_gan, n_gan = sector_predominante(s8["ganadores"])
+    sector_per, n_per = sector_predominante(s8["perdedores"])
+
+    piezas = []
+    if sector_gan is not None and n_gan >= 3:
+        piezas.append(f"{sector_gan} concentró {n_gan} de los {len(s8['ganadores'])} mayores avances")
+    if sector_per is not None and n_per >= 3:
+        piezas.append(f"{sector_per} concentró {n_per} de las {len(s8['perdedores'])} mayores caídas")
+
+    if not piezas:
+        return "Los mayores movimientos de la semana estuvieron repartidos entre sectores, sin una concentración sectorial clara."
+    return "Entre los extremos de la semana, " + "; ".join(piezas) + "."
+
+
+# --------------------------------------------------------------------------
 # Resumen ejecutivo y claves de la semana
 # --------------------------------------------------------------------------
 
-def resumen_ejecutivo(s1, s2, s3, s4, regimen):
+def resumen_ejecutivo(s1, s2, s3, s4, regimen, s6=None):
     parrafos = []
 
     spx = s1["spx"]
@@ -241,6 +320,8 @@ def resumen_ejecutivo(s1, s2, s3, s4, regimen):
     if vix is not None:
         direccion_vix = "subió" if vix["var"] >= 0 else "bajó"
         p1 += f" El VIX {direccion_vix} {_fmt_pct(abs(vix['var']), signo=False)} y cerró en {vix['cierre']:.1f}."
+    if s6 is not None and s6.get("disponible"):
+        p1 += f" La amplitud de mercado fue de {_fmt_pct(s6['amplitud_pct'], decimales=0, signo=False)} de componentes del S&P 500 en positivo."
     parrafos.append(p1)
 
     if s2.get("disponible"):
@@ -282,7 +363,7 @@ def resumen_ejecutivo(s1, s2, s3, s4, regimen):
     return parrafos
 
 
-def claves_semana(s1, s2, s3, s4):
+def claves_semana(s1, s2, s3, s4, s6=None):
     claves = []
     spx = s1["spx"]
     claves.append(f"S&P 500: {_fmt_pct(spx['var'])} en la semana, cierre en {spx['cierre']:,.0f}.")
@@ -308,6 +389,12 @@ def claves_semana(s1, s2, s3, s4):
     if s4.get("disponible") and s4.get("volumen_relativo") is not None:
         claves.append(f"Volumen SPY vs. promedio 4 semanas: {_fmt_pct(s4['volumen_relativo'])}.")
 
+    if s6 is not None and s6.get("disponible"):
+        claves.append(
+            f"Amplitud: {s6['suben']} suben, {s6['bajan']} bajan, {s6['planos']} planos "
+            f"de {s6['n_efectivo']} componentes ({_fmt_pct(s6['amplitud_pct'], decimales=0, signo=False)} en positivo)."
+        )
+
     return claves
 
 
@@ -315,12 +402,16 @@ def generar_informe(resultado):
     """Punto de entrada: recibe el dict de calcular_todo() y devuelve todos
     los textos que necesita el template."""
     s1, s2, s3, s4 = resultado["s1"], resultado["s2"], resultado["s3"], resultado["s4"]
+    s6 = resultado.get("s6", {"disponible": False})
+    s7 = resultado.get("s7", {"disponible": False})
+    s8 = resultado.get("s8", {"disponible": False})
     spx = s1["spx"]
     vix = s1.get("vix")
 
     sectores_positivos = s2.get("positivos", 0)
     total_sectores = s2.get("total", 0)
-    regimen = regimen_semana(spx["var"], sectores_positivos, total_sectores)
+    amplitud_mercado = s6["amplitud_pct"] if s6.get("disponible") else None
+    regimen = regimen_semana(spx["var"], sectores_positivos, total_sectores, amplitud_mercado)
 
     balance = balance_agregado(
         var_spx=spx["var"],
@@ -337,10 +428,13 @@ def generar_informe(resultado):
         "titulo": titulo_informe(spx["var"], regimen),
         "bajada": bajada_informe(s2, s3),
         "balance": balance,
-        "resumen": resumen_ejecutivo(s1, s2, s3, s4, regimen),
-        "claves": claves_semana(s1, s2, s3, s4),
+        "resumen": resumen_ejecutivo(s1, s2, s3, s4, regimen, s6),
+        "claves": claves_semana(s1, s2, s3, s4, s6),
         "lectura_panorama": lectura_panorama(s1),
         "lectura_sectores": lectura_sectores(s2),
         "lectura_macro": lectura_macro(s3),
         "lectura_flujos": lectura_flujos(s4["spreads"]) if s4.get("disponible") else None,
+        "lectura_amplitud": lectura_amplitud(s6),
+        "lectura_distribucion": lectura_distribucion(s7),
+        "lectura_top_movers": lectura_top_movers(s8),
     }

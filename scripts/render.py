@@ -213,6 +213,52 @@ tbody tr:nth-child(even) { background: var(--gris-fondo); }
 }
 ul.claves { margin: 0; padding-left: 20px; }
 ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 18px;
+}
+.stat {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 150px;
+  flex: 1 1 150px;
+}
+.stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gris-texto);
+  margin-bottom: 4px;
+}
+.stat .valor { font-size: 17px; font-weight: 600; color: #e6ebf3; }
+.histograma {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+.histograma .barra-vert {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.histograma .conteo { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.histograma .columna { width: 100%; max-width: 46px; border-radius: 3px 3px 0 0; min-height: 3px; }
+.histograma .columna.pos { background: var(--verde); }
+.histograma .columna.neg { background: var(--rojo); }
+.histograma .etiqueta {
+  font-size: 10.5px;
+  color: var(--gris-texto);
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.25;
+}
+h3.subtitulo { font-size: 14.5px; color: var(--navy-light); margin: 18px 0 8px; }
 .balance-bloque {
   display: flex;
   align-items: center;

@@ -110,6 +110,11 @@ SEMANAS_PROMEDIO_VOLUMEN = 4
 CSV_CONSTITUYENTES = "constituyentes_sp500.csv"
 UMBRAL_PLANO = 0.0025  # |var| < 0.25% se considera "plano"
 CHUNK_SIZE_CONSTITUYENTES = 100
+PERIODO_DESCARGA_CONSTITUYENTES = "18mo"  # >=200 ruedas de historia para EMA200
+MIN_CONSTITUYENTES_EFECTIVOS = 50  # piso de confiabilidad para S6/S7/S8
+EMA_CORTA = 50
+EMA_LARGA = 200
+TOP_N_GANADORES_PERDEDORES = 10
 BUCKETS_HISTOGRAMA = [
     (-float("inf"), -0.05, "< −5%"),
     (-0.05, -0.02, "−5% a −2%"),

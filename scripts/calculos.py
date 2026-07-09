@@ -1,9 +1,12 @@
-"""Cálculos por sección (S1-S4) a partir de los datos descargados.
+"""Cálculos por sección (S1-S4, S6-S8) a partir de los datos descargados.
 
 Todas las funciones son puras: reciben el dict {ticker: DataFrame} de
 data_sources y devuelven estructuras simples (dict/list) listas para
 narrativa.py y render.py. Ninguna función descarga datos.
 """
+
+import csv
+import os
 
 import numpy as np
 import pandas as pd
@@ -297,11 +300,154 @@ def calcular_s4(datos, semana):
     return resultado
 
 
-def calcular_todo(datos, fred_10y=None, referencia=None):
-    """Orquesta S1-S4 sobre el dict de datos ya descargado."""
+def cargar_constituyentes(path):
+    """Lee constituyentes_sp500.csv (ticker,nombre,sector). Devuelve dict
+    {ticker: {"nombre":.., "sector":..}}; {} si el archivo no existe."""
+    if not os.path.exists(path):
+        return {}
+    constituyentes = {}
+    with open(path, newline="", encoding="utf-8") as f:
+        for fila in csv.DictReader(f):
+            constituyentes[fila["ticker"]] = {"nombre": fila["nombre"], "sector": fila["sector"]}
+    return constituyentes
+
+
+def calcular_s6(datos_masivos, constituyentes, semana, var_indice=None):
+    """Amplitud del mercado sobre los componentes del S&P 500."""
+    resultado = {"disponible": False}
+    lunes, viernes, fechas_semana, fecha_previa = semana
+    if fecha_previa is None or not datos_masivos or not constituyentes:
+        return resultado
+
+    dias_semana = list(fechas_semana)
+    dias_referencia = [fecha_previa] + dias_semana
+    conteos_dia = {d: [0, 0] for d in dias_semana}  # fecha -> [suben, total]
+
+    filas = []
+    for ticker, df in datos_masivos.items():
+        info = constituyentes.get(ticker)
+        if info is None:
+            continue
+        cierre = serie_cierre(df)
+        if fecha_previa not in cierre.index:
+            continue
+        cierre_semana = cierre.reindex(fechas_semana).dropna()
+        if cierre_semana.empty:
+            continue
+
+        cierre_final = cierre_semana.iloc[-1]
+        fecha_final = cierre_semana.index[-1]
+        cierre_prev = cierre.loc[fecha_previa]
+        var = float(cierre_final / cierre_prev - 1)
+
+        if abs(var) < config.UMBRAL_PLANO:
+            categoria = "plano"
+        elif var > 0:
+            categoria = "sube"
+        else:
+            categoria = "baja"
+
+        sobre_ema50 = sobre_ema200 = None
+        if len(cierre) >= config.EMA_LARGA:
+            ema50 = cierre.ewm(span=config.EMA_CORTA, adjust=False).mean()
+            ema200 = cierre.ewm(span=config.EMA_LARGA, adjust=False).mean()
+            sobre_ema50 = bool(cierre_final > ema50.loc[fecha_final])
+            sobre_ema200 = bool(cierre_final > ema200.loc[fecha_final])
+
+        filas.append({
+            "ticker": ticker,
+            "nombre": info["nombre"],
+            "sector": info["sector"],
+            "var": var,
+            "categoria": categoria,
+            "sobre_ema50": sobre_ema50,
+            "sobre_ema200": sobre_ema200,
+        })
+
+        for i in range(1, len(dias_referencia)):
+            dia_ant, dia = dias_referencia[i - 1], dias_referencia[i]
+            if dia not in conteos_dia:
+                continue
+            if dia_ant in cierre.index and dia in cierre.index:
+                conteos_dia[dia][1] += 1
+                if cierre.loc[dia] > cierre.loc[dia_ant]:
+                    conteos_dia[dia][0] += 1
+
+    if len(filas) < config.MIN_CONSTITUYENTES_EFECTIVOS:
+        return resultado
+
+    n_efectivo = len(filas)
+    suben = sum(1 for f in filas if f["categoria"] == "sube")
+    bajan = sum(1 for f in filas if f["categoria"] == "baja")
+    planos = n_efectivo - suben - bajan
+
+    retornos = [f["var"] for f in filas]
+    con_ema = [f for f in filas if f["sobre_ema50"] is not None]
+    proporciones_diarias = [c[0] / c[1] for c in conteos_dia.values() if c[1] > 0]
+
+    resultado.update({
+        "disponible": True,
+        "n_efectivo": n_efectivo,
+        "suben": suben,
+        "bajan": bajan,
+        "planos": planos,
+        "amplitud_pct": suben / n_efectivo,
+        "retorno_promedio": float(np.mean(retornos)),
+        "retorno_mediana": float(np.median(retornos)),
+        "var_indice": var_indice,
+        "pct_sobre_ema50": (sum(1 for f in con_ema if f["sobre_ema50"]) / len(con_ema)) if con_ema else None,
+        "pct_sobre_ema200": (sum(1 for f in con_ema if f["sobre_ema200"]) / len(con_ema)) if con_ema else None,
+        "n_con_historia_ema": len(con_ema),
+        "amplitud_media_diaria": float(np.mean(proporciones_diarias)) if proporciones_diarias else None,
+        "filas": filas,
+    })
+    return resultado
+
+
+def calcular_s7(s6):
+    """Histograma de retornos semanales (6 buckets fijos, ver config.BUCKETS_HISTOGRAMA)."""
+    resultado = {"disponible": False}
+    if not s6.get("disponible"):
+        return resultado
+
+    filas = s6["filas"]
+    buckets = []
+    for lo, hi, etiqueta in config.BUCKETS_HISTOGRAMA:
+        conteo = sum(1 for f in filas if lo <= f["var"] < hi)
+        buckets.append({"etiqueta": etiqueta, "conteo": conteo, "positivo": lo >= 0})
+
+    max_conteo = max((b["conteo"] for b in buckets), default=0) or 1
+    for b in buckets:
+        b["barra_pct"] = round(b["conteo"] / max_conteo * 100, 1)
+
+    resultado.update({"disponible": True, "buckets": buckets, "total": len(filas)})
+    return resultado
+
+
+def calcular_s8(s6, top_n=None):
+    """Top ganadores/perdedores de la semana entre los componentes."""
+    resultado = {"disponible": False}
+    if not s6.get("disponible"):
+        return resultado
+
+    top_n = top_n or config.TOP_N_GANADORES_PERDEDORES
+    ordenadas = sorted(s6["filas"], key=lambda f: f["var"], reverse=True)
+    ganadores = ordenadas[:top_n]
+    perdedores = list(reversed(ordenadas[-top_n:])) if len(ordenadas) >= top_n else list(reversed(ordenadas))
+
+    resultado.update({"disponible": True, "ganadores": ganadores, "perdedores": perdedores})
+    return resultado
+
+
+def calcular_todo(datos, fred_10y=None, referencia=None, datos_masivos=None, constituyentes=None):
+    """Orquesta S1-S8 sobre los dicts de datos ya descargados."""
+    vacio_amplitud = {"disponible": False}
     s1 = calcular_s1(datos, referencia)
     if not s1["disponible"]:
-        return {"s1": s1, "s2": {"disponible": False}, "s3": {"disponible": False}, "s4": {"disponible": False}}
+        return {
+            "s1": s1, "s2": {"disponible": False}, "s3": {"disponible": False},
+            "s4": {"disponible": False}, "s6": vacio_amplitud, "s7": vacio_amplitud, "s8": vacio_amplitud,
+        }
 
     semana = (s1["semana"]["lunes"], s1["semana"]["viernes"], None, s1["semana"]["fecha_previa"])
     # recomponer fechas_semana reales a partir de los índices ya usados en S1
@@ -312,4 +458,8 @@ def calcular_todo(datos, fred_10y=None, referencia=None):
     s3 = calcular_s3(datos, semana, fred_10y)
     s4 = calcular_s4(datos, semana)
 
-    return {"s1": s1, "s2": s2, "s3": s3, "s4": s4, "semana": s1["semana"]}
+    s6 = calcular_s6(datos_masivos or {}, constituyentes or {}, semana, var_indice=s1["spx"]["var"])
+    s7 = calcular_s7(s6)
+    s8 = calcular_s8(s6)
+
+    return {"s1": s1, "s2": s2, "s3": s3, "s4": s4, "s6": s6, "s7": s7, "s8": s8, "semana": s1["semana"]}
