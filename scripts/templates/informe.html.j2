@@ -308,6 +308,54 @@
     {% endif %}
   </section>
 
+  <section class="seccion" id="earnings">
+    <div class="num-badge"><span class="barra"></span><span class="num">09</span></div>
+    <h2 class="titulo-seccion">Temporada de resultados</h2>
+    {% if s9.disponible %}
+    {% if s9.n_reportes > 0 %}
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Reportes</div>
+        <div class="valor">{{ s9.n_reportes }}</div>
+      </div>
+      <div class="stat">
+        <div class="label">% de beats</div>
+        <div class="valor">{{ s9.pct_beats | pct(0, false) }}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sorpresa media</div>
+        <div class="valor {{ clase_var(s9.sorpresa_media) }}">{{ s9.sorpresa_media | pct }}</div>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Ticker</th><th>Compañía</th><th>EPS real</th><th>EPS est.</th><th>Sorpresa</th><th>Reacción</th></tr>
+        </thead>
+        <tbody>
+          {% for r in s9.reportes %}
+          <tr>
+            <td>{{ r.fecha | fecha }}</td>
+            <td>{{ r.ticker }}</td>
+            <td>{{ r.nombre }}</td>
+            <td>{{ r.eps_actual | num(2) }}</td>
+            <td>{{ r.eps_estimado | num(2) }}</td>
+            <td class="{{ clase_var(r.sorpresa_pct) }}">{{ r.sorpresa_pct | pct }}</td>
+            <td class="{{ clase_var(r.var_precio) }}">{{ r.var_precio | pct }} ({{ r.timing }})</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+    {% if lectura_earnings %}
+    <p class="parrafo lectura">{{ lectura_earnings }}</p>
+    {% endif %}
+    {% else %}
+    <p class="seccion-no-disp">Datos no disponibles esta semana.</p>
+    {% endif %}
+  </section>
+
 </main>
 
 <footer class="wrap">
