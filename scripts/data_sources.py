@@ -149,5 +149,84 @@ def descargar_fred_10y(api_key, periodo_dias=120):
     return None
 
 
+def _descargar_chunk_yfinance(tickers_chunk, periodo):
+    try:
+        df = yf.download(
+            tickers_chunk,
+            period=periodo,
+            interval="1d",
+            group_by="ticker",
+            progress=False,
+            auto_adjust=False,
+            threads=True,
+        )
+    except Exception as e:
+        _log(f"yfinance error en chunk ({len(tickers_chunk)} tickers): {e}")
+        return None
+    if df is None or df.empty:
+        return None
+    return df
+
+
+def _separar_chunk(df, tickers_chunk):
+    """Divide el DataFrame multi-ticker de yf.download() en dict {ticker: DataFrame}."""
+    resultado = {}
+    if isinstance(df.columns, pd.MultiIndex):
+        nivel0 = set(df.columns.get_level_values(0))
+        for ticker in tickers_chunk:
+            if ticker not in nivel0:
+                continue
+            sub = df[ticker].dropna(how="all")
+            if not sub.empty:
+                resultado[ticker] = sub
+    elif len(tickers_chunk) == 1:
+        sub = df.dropna(how="all")
+        if not sub.empty:
+            resultado[tickers_chunk[0]] = sub
+    return resultado
+
+
+def descargar_masivo(tickers, periodo=config.PERIODO_DESCARGA_DEFAULT, chunk_size=None):
+    """Descarga en chunks (yf.download con varios tickers por llamada), pensada
+    para listas grandes (~500 componentes del S&P 500, fase 2). Retry con
+    backoff a nivel de chunk; tolerante a tickers individuales faltantes
+    dentro de un chunk exitoso.
+
+    Devuelve (datos: dict {ticker: DataFrame}, fallidos: list[str]).
+    """
+    chunk_size = chunk_size or config.CHUNK_SIZE_CONSTITUYENTES
+    datos = {}
+    fallidos = []
+
+    chunks = [tickers[i:i + chunk_size] for i in range(0, len(tickers), chunk_size)]
+    for n, chunk in enumerate(chunks, start=1):
+        _log(f"Descargando chunk {n}/{len(chunks)} ({len(chunk)} tickers)...")
+        df = None
+        for intento in range(config.INTENTOS_DESCARGA):
+            df = _descargar_chunk_yfinance(chunk, periodo)
+            if df is not None and not df.empty:
+                break
+            if intento < config.INTENTOS_DESCARGA - 1:
+                espera = config.BACKOFF_SEGUNDOS[min(intento, len(config.BACKOFF_SEGUNDOS) - 1)]
+                _log(f"Reintentando chunk {n} en {espera}s (intento {intento + 1}/{config.INTENTOS_DESCARGA})")
+                time.sleep(espera)
+
+        if df is None or df.empty:
+            _log(f"Chunk {n} falló tras {config.INTENTOS_DESCARGA} intentos; se excluyen {len(chunk)} tickers.")
+            fallidos.extend(chunk)
+            continue
+
+        separados = _separar_chunk(df, chunk)
+        for ticker in chunk:
+            sub = separados.get(ticker)
+            if sub is not None and len(sub) >= config.MIN_SESIONES_SEMANA:
+                datos[ticker] = sub
+            else:
+                fallidos.append(ticker)
+
+    _log(f"Descarga masiva: {len(datos)} de {len(tickers)} tickers efectivos ({len(fallidos)} excluidos).")
+    return datos, fallidos
+
+
 def limpiar_cache():
     _cache.clear()

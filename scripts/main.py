@@ -20,9 +20,11 @@ import narrativa
 import render
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 INFORMES_DIR = os.path.join(RAIZ, "informes")
 MANIFEST_PATH = os.path.join(INFORMES_DIR, "manifest.json")
 INDEX_PATH = os.path.join(RAIZ, "index.html")
+CSV_CONSTITUYENTES_PATH = os.path.join(SCRIPTS_DIR, config.CSV_CONSTITUYENTES)
 
 
 def _log(msg):
@@ -52,13 +54,37 @@ def _guardar_manifest(informes):
         json.dump(informes, f, ensure_ascii=False, indent=2)
 
 
+def _descargar_constituyentes():
+    """Fase 2 (S6-S8): descarga masiva de los componentes del S&P 500.
+    No es núcleo -- cualquier falla (CSV ausente, descarga caída) deja
+    datos_masivos/constituyentes vacíos y las secciones quedan marcadas
+    "no disponibles" sin abortar la corrida."""
+    constituyentes = calculos.cargar_constituyentes(CSV_CONSTITUYENTES_PATH)
+    if not constituyentes:
+        _log(f"constituyentes_sp500.csv no encontrado o vacío en {CSV_CONSTITUYENTES_PATH}; se omiten S6-S8.")
+        return {}, {}
+
+    tickers = list(constituyentes.keys())
+    try:
+        datos_masivos, fallidos = data_sources.descargar_masivo(
+            tickers, periodo=config.PERIODO_DESCARGA_CONSTITUYENTES
+        )
+    except Exception as e:
+        _log(f"Descarga masiva de constituyentes falló por completo ({e}); se omiten S6-S8.")
+        return {}, constituyentes
+
+    _log(f"Constituyentes: {len(datos_masivos)}/{len(tickers)} efectivos ({len(fallidos)} excluidos).")
+    return datos_masivos, constituyentes
+
+
 def main(referencia=None):
     _log("Descargando datos de mercado...")
     datos = data_sources.descargar(_tickers_necesarios())
     fred_10y = data_sources.descargar_fred_10y(os.environ.get("FRED_API_KEY"))
+    datos_masivos, constituyentes = _descargar_constituyentes()
 
-    _log("Calculando métricas (S1-S4)...")
-    resultado = calculos.calcular_todo(datos, fred_10y, referencia)
+    _log("Calculando métricas (S1-S4, S6-S8)...")
+    resultado = calculos.calcular_todo(datos, fred_10y, referencia, datos_masivos, constituyentes)
 
     s1, s3 = resultado["s1"], resultado["s3"]
     if not s1.get("disponible") or not s3.get("disponible"):
@@ -85,10 +111,16 @@ def main(referencia=None):
         "lectura_sectores": textos["lectura_sectores"],
         "lectura_macro": textos["lectura_macro"],
         "lectura_flujos": textos["lectura_flujos"],
+        "lectura_amplitud": textos["lectura_amplitud"],
+        "lectura_distribucion": textos["lectura_distribucion"],
+        "lectura_top_movers": textos["lectura_top_movers"],
         "s1": s1,
         "s2": resultado["s2"],
         "s3": s3,
         "s4": resultado["s4"],
+        "s6": resultado["s6"],
+        "s7": resultado["s7"],
+        "s8": resultado["s8"],
     }
 
     _log(f"Renderizando {salida_informe}...")

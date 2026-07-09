@@ -165,6 +165,52 @@ tbody tr:nth-child(even) { background: var(--gris-fondo); }
 }
 ul.claves { margin: 0; padding-left: 20px; }
 ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 18px;
+}
+.stat {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 150px;
+  flex: 1 1 150px;
+}
+.stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gris-texto);
+  margin-bottom: 4px;
+}
+.stat .valor { font-size: 17px; font-weight: 600; color: #e6ebf3; }
+.histograma {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+.histograma .barra-vert {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.histograma .conteo { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.histograma .columna { width: 100%; max-width: 46px; border-radius: 3px 3px 0 0; min-height: 3px; }
+.histograma .columna.pos { background: var(--verde); }
+.histograma .columna.neg { background: var(--rojo); }
+.histograma .etiqueta {
+  font-size: 10.5px;
+  color: var(--gris-texto);
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.25;
+}
+h3.subtitulo { font-size: 14.5px; color: var(--navy-light); margin: 18px 0 8px; }
 .balance-bloque {
   display: flex;
   align-items: center;
@@ -281,7 +327,7 @@ footer .disclaimer { margin-top: 6px; }
       <span class="balance-valor">+60</span>
     </div>
 
-    <p class="parrafo">El S&P 500 avanzó +1.8% en la semana, cerrando en 7,483 puntos, en un contexto de apetito por riesgo amplio. El VIX bajó 12.3% y cerró en 16.1.</p>
+    <p class="parrafo">El S&P 500 avanzó +1.8% en la semana, cerrando en 7,483 puntos, en un contexto de apetito por riesgo amplio. El VIX bajó 12.3% y cerró en 16.1. La amplitud de mercado fue de 60% de componentes del S&P 500 en positivo.</p>
     <p class="parrafo">La rotación sectorial mostró 7 de 11 sectores en terreno positivo. Financiero lideró con +3.8%, mientras que Real Estate fue el más rezagado con -1.2%. El spread cíclicos-defensivos quedó a favor de los cíclicos (+1.8%).</p>
     <p class="parrafo">En el frente macro, el dólar se debilitó 0.1% frente a una canasta de majors; el oro +0.8%; el WTI -0.8%; Bitcoin +2.4%.</p>
     <p class="parrafo">El crédito high-yield superó con holgura a los Treasuries largos, un indicio de apetito por riesgo en el mercado de renta fija.</p>
@@ -293,6 +339,7 @@ footer .disclaimer { margin-top: 6px; }
       <li>Sector líder: Financiero (+3.8%); más rezagado: Real Estate (-1.2%).</li>
       <li>Dólar (índice sintético): se debilitó 0.1%.</li>
       <li>Volumen SPY vs. promedio 4 semanas: -13.7%.</li>
+      <li>Amplitud: 304 suben, 169 bajan, 30 planos de 503 componentes (60% en positivo).</li>
     </ul>
   </section>
 
@@ -518,6 +565,224 @@ footer .disclaimer { margin-top: 6px; }
     </div>
     <p class="parrafo" style="margin-top:10px;">Volumen de SPY vs. promedio de las 4 semanas previas: <strong class="negativo">-13.7%</strong>.</p>
     <p class="parrafo">El crédito high-yield superó con holgura a los Treasuries largos, un indicio de apetito por riesgo en el mercado de renta fija.</p>
+  </section>
+
+  <section class="seccion" id="amplitud">
+    <div class="num-badge"><span class="barra"></span><span class="num">06</span></div>
+    <h2 class="titulo-seccion">Amplitud del mercado</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Suben / Bajan / Planos</div>
+        <div class="valor">304 / 169 / 30</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud</div>
+        <div class="valor">60%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno promedio (cías.)</div>
+        <div class="valor positivo">+1.2%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno mediana (cías.)</div>
+        <div class="valor positivo">+1.1%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 50</div>
+        <div class="valor">67%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 200</div>
+        <div class="valor">67%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud media diaria</div>
+        <div class="valor">54%</div>
+      </div>
+    </div>
+    <p class="parrafo">N efectivo: 503 componentes del S&amp;P 500 (retorno del índice: +1.8%).</p>
+    <p class="parrafo lectura">La amplitud fue amplia: 60% de los componentes del S&P 500 terminaron en positivo. La compañía mediana quedó por detrás del índice, señal de que el resultado del S&P 500 dependió de un grupo acotado de nombres grandes. 67% de los componentes con historia suficiente cotiza por encima de su EMA de 200 ruedas.</p>
+  </section>
+
+  <section class="seccion" id="distribucion">
+    <div class="num-badge"><span class="barra"></span><span class="num">07</span></div>
+    <h2 class="titulo-seccion">Distribución de retornos semanales</h2>
+    <div class="histograma">
+      <div class="barra-vert">
+        <div class="conteo">56</div>
+        <div class="columna neg" style="height:49.1px;"></div>
+        <div class="etiqueta">< −5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">57</div>
+        <div class="columna neg" style="height:50.0px;"></div>
+        <div class="etiqueta">−5% a −2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">71</div>
+        <div class="columna neg" style="height:62.3px;"></div>
+        <div class="etiqueta">−2% a 0%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">114</div>
+        <div class="columna pos" style="height:100.0px;"></div>
+        <div class="etiqueta">0% a +2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">112</div>
+        <div class="columna pos" style="height:98.2px;"></div>
+        <div class="etiqueta">+2% a +5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">93</div>
+        <div class="columna pos" style="height:81.6px;"></div>
+        <div class="etiqueta">> +5%</div>
+      </div>
+    </div>
+    <p class="parrafo" style="margin-top:14px;">Distribución sobre 503 compañías.</p>
+    <p class="parrafo lectura">La distribución muestra colas gruesas: una porción relevante de las compañías tuvo movimientos semanales superiores al 5% en cualquier dirección.</p>
+  </section>
+
+  <section class="seccion" id="movers">
+    <div class="num-badge"><span class="barra"></span><span class="num">08</span></div>
+    <h2 class="titulo-seccion">Ganadores y perdedores</h2>
+    <h3 class="subtitulo">Top 10 subas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>AXON</td>
+            <td>Axon Enterprise</td>
+            <td>Industrials</td>
+            <td class="positivo">+28.4%</td>
+          </tr>
+          <tr>
+            <td>MRNA</td>
+            <td>Moderna</td>
+            <td>Health Care</td>
+            <td class="positivo">+18.6%</td>
+          </tr>
+          <tr>
+            <td>PLTR</td>
+            <td>Palantir Technologies</td>
+            <td>Information Technology</td>
+            <td class="positivo">+14.5%</td>
+          </tr>
+          <tr>
+            <td>PANW</td>
+            <td>Palo Alto Networks</td>
+            <td>Information Technology</td>
+            <td class="positivo">+14.4%</td>
+          </tr>
+          <tr>
+            <td>GPC</td>
+            <td>Genuine Parts Company</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+14.3%</td>
+          </tr>
+          <tr>
+            <td>HOOD</td>
+            <td>Robinhood Markets</td>
+            <td>Financials</td>
+            <td class="positivo">+14.2%</td>
+          </tr>
+          <tr>
+            <td>SPGI</td>
+            <td>S&P Global</td>
+            <td>Financials</td>
+            <td class="positivo">+13.9%</td>
+          </tr>
+          <tr>
+            <td>APD</td>
+            <td>Air Products</td>
+            <td>Materials</td>
+            <td class="positivo">+13.1%</td>
+          </tr>
+          <tr>
+            <td>FOXA</td>
+            <td>Fox Corporation (Class A)</td>
+            <td>Communication Services</td>
+            <td class="positivo">+12.7%</td>
+          </tr>
+          <tr>
+            <td>GPN</td>
+            <td>Global Payments</td>
+            <td>Financials</td>
+            <td class="positivo">+12.7%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subtitulo">Top 10 bajas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>SNDK</td>
+            <td>Sandisk</td>
+            <td>Information Technology</td>
+            <td class="negativo">-16.5%</td>
+          </tr>
+          <tr>
+            <td>TER</td>
+            <td>Teradyne</td>
+            <td>Information Technology</td>
+            <td class="negativo">-15.5%</td>
+          </tr>
+          <tr>
+            <td>MU</td>
+            <td>Micron Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-13.8%</td>
+          </tr>
+          <tr>
+            <td>COHR</td>
+            <td>Coherent Corp.</td>
+            <td>Information Technology</td>
+            <td class="negativo">-12.4%</td>
+          </tr>
+          <tr>
+            <td>CIEN</td>
+            <td>Ciena</td>
+            <td>Information Technology</td>
+            <td class="negativo">-11.9%</td>
+          </tr>
+          <tr>
+            <td>IRM</td>
+            <td>Iron Mountain</td>
+            <td>Real Estate</td>
+            <td class="negativo">-11.5%</td>
+          </tr>
+          <tr>
+            <td>SMCI</td>
+            <td>Supermicro</td>
+            <td>Information Technology</td>
+            <td class="negativo">-11.1%</td>
+          </tr>
+          <tr>
+            <td>GLW</td>
+            <td>Corning Inc.</td>
+            <td>Information Technology</td>
+            <td class="negativo">-11.0%</td>
+          </tr>
+          <tr>
+            <td>LITE</td>
+            <td>Lumentum</td>
+            <td>Information Technology</td>
+            <td class="negativo">-10.9%</td>
+          </tr>
+          <tr>
+            <td>Q</td>
+            <td>Qnity Electronics</td>
+            <td>Information Technology</td>
+            <td class="negativo">-10.4%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">Entre los extremos de la semana, Financials concentró 3 de los 10 mayores avances; Information Technology concentró 9 de las 10 mayores caídas.</p>
   </section>
 
 </main>
