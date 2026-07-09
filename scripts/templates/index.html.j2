@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ titulo_sitio }}</title>
+<style>{{ css }}</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap">
+    <p class="kicker">{{ titulo_sitio }}</p>
+    <h1 class="titulo-informe">Histórico de informes</h1>
+    <p class="bajada">Un informe por semana, generado automáticamente los sábados a partir de datos públicos de mercado.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="seccion">
+    {% if informes %}
+    <ul class="lista-informes">
+      {% for inf in informes %}
+      <li>
+        <div class="fecha-item">Semana del {{ inf.lunes | fecha }} al {{ inf.viernes | fecha }}</div>
+        <a class="titulo-item" href="informes/{{ inf.archivo }}">{{ inf.titulo }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="seccion-no-disp">Todavía no hay informes publicados.</p>
+    {% endif %}
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="disclaimer">{{ disclaimer }}</div>
+</footer>
+</body>
+</html>

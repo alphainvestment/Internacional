@@ -1,0 +1,77 @@
+name: Informe semanal internacional
+
+on:
+  schedule:
+    # Sábado 10:00 AM hora Córdoba (UTC-3) = 13:00 UTC
+    - cron: "0 13 * * 6"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: informe-internacional
+  cancel-in-progress: false
+
+jobs:
+  generar-informe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generar informe
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/main.py
+
+      - name: Commit y push del informe
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html informes/
+          if git diff --cached --quiet; then
+            echo "Sin cambios para commitear."
+          else
+            git commit -m "Informe semanal $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - name: Leer datos del release
+        id: release_info
+        continue-on-error: true
+        run: |
+          python - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json
+          with open("informes/ultimo_release.json", encoding="utf-8") as f:
+              info = json.load(f)
+          claves_md = "\n".join(f"- {c}" for c in info["claves"])
+          cuerpo = (
+              f"**Semana del {info['lunes']} al {info['viernes']}**\n\n"
+              f"{claves_md}\n\n"
+              f"Informe completo: {info['url']}"
+          )
+          print(f"tag={info['tag']}")
+          print(f"titulo={info['titulo']}")
+          print("cuerpo<<RELEASE_BODY_EOF")
+          print(cuerpo)
+          print("RELEASE_BODY_EOF")
+          EOF
+
+      - name: Crear Release (notificación por mail)
+        if: steps.release_info.outcome == 'success'
+        uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          tag_name: ${{ steps.release_info.outputs.tag }}
+          name: ${{ steps.release_info.outputs.titulo }}
+          body: ${{ steps.release_info.outputs.cuerpo }}
+          token: ${{ secrets.GITHUB_TOKEN }}

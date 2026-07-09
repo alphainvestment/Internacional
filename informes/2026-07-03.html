@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El S&P 500 avanzó (+1.8%) en una semana de apetito por riesgo amplio — INFORME SEMANAL DE MERCADO — INTERNACIONAL</title>
+<style>
+:root {
+  --navy: #16233b;
+  --navy-light: #7fa6e0;
+  --verde: #2ecf82;
+  --rojo: #ff6b6f;
+  --gris-borde: rgba(255,255,255,0.10);
+  --gris-texto: #96a2b8;
+  --gris-fondo: #16202e;
+  --bg: #0c1420;
+  --bg-cabecera: #0a1220;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
+  color: #e6ebf3;
+  background: var(--bg);
+  line-height: 1.5;
+}
+a { color: var(--navy-light); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header.cabecera {
+  background: var(--bg-cabecera);
+  color: #fff;
+  padding: 28px 0 24px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aebcd6;
+  margin: 0 0 10px;
+}
+.rango-fechas {
+  font-size: 13px;
+  color: #c7d2e6;
+  margin: 4px 0 18px;
+}
+h1.titulo-informe {
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.25;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+p.bajada {
+  font-size: 15px;
+  color: #dbe3f0;
+  margin: 0;
+  max-width: 720px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 130px;
+  flex: 1 1 130px;
+}
+.card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aebcd6;
+  margin-bottom: 4px;
+}
+.card .valor {
+  font-size: 18px;
+  font-weight: 600;
+}
+main { padding: 30px 0 10px; }
+section.seccion { margin-bottom: 40px; }
+.num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.num-badge .barra {
+  width: 26px;
+  height: 4px;
+  background: var(--navy-light);
+  border-radius: 2px;
+}
+.num-badge .num {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gris-texto);
+  font-weight: 600;
+}
+h2.titulo-seccion {
+  font-size: 19px;
+  color: var(--navy-light);
+  margin: 0 0 14px;
+}
+p.parrafo { margin: 0 0 12px; font-size: 14.5px; color: #c6cede; }
+p.parrafo.lectura { color: #96a2b8; font-style: italic; }
+.positivo { color: var(--verde); font-weight: 600; }
+.negativo { color: var(--rojo); font-weight: 600; }
+.tabla-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+th {
+  text-align: left;
+  color: var(--navy-light);
+  border-bottom: 2px solid var(--navy-light);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--gris-borde);
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--gris-fondo); }
+.barra-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.barra-fila .etiqueta {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.barra-fila .pista {
+  flex: 1;
+  background: var(--gris-fondo);
+  border-radius: 3px;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.barra-fila .relleno {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.barra-fila .relleno.pos { background: var(--verde); }
+.barra-fila .relleno.neg { background: var(--rojo); }
+.barra-fila .valor {
+  width: 64px;
+  text-align: right;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+ul.claves { margin: 0; padding-left: 20px; }
+ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.balance-bloque {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 18px;
+}
+.balance-pista {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--rojo), var(--gris-fondo) 50%, var(--verde));
+  position: relative;
+}
+.balance-marca {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 18px;
+  background: #e6ebf3;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.balance-valor { font-size: 16px; font-weight: 700; color: var(--navy-light); width: 60px; text-align: right; }
+.seccion-no-disp {
+  color: var(--gris-texto);
+  font-style: italic;
+  font-size: 14px;
+  padding: 14px;
+  background: var(--gris-fondo);
+  border-radius: 6px;
+}
+footer {
+  border-top: 1px solid var(--gris-borde);
+  padding: 20px 0 40px;
+  color: var(--gris-texto);
+  font-size: 12.5px;
+}
+footer .disclaimer { margin-top: 6px; }
+.lista-informes { list-style: none; margin: 0; padding: 0; }
+.lista-informes li {
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 16px 0;
+}
+.lista-informes .fecha-item {
+  font-size: 12px;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.lista-informes a.titulo-item {
+  font-size: 16px;
+  color: var(--navy-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lista-informes a.titulo-item:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .cards { gap: 8px; }
+  .card { min-width: 120px; }
+  .barra-fila .etiqueta { width: 92px; font-size: 12px; }
+  h1.titulo-informe { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap">
+    <p class="kicker">INFORME SEMANAL DE MERCADO — INTERNACIONAL</p>
+    <p class="rango-fechas">Semana del 29 jun 2026 al 3 jul 2026 &middot; Publicado 9 jul 2026</p>
+    <h1 class="titulo-informe">El S&P 500 avanzó (+1.8%) en una semana de apetito por riesgo amplio</h1>
+    <p class="bajada">7 de 11 sectores en positivo, liderados por Financiero (+3.8%); el dólar se debilitó 0.1% frente a las majors.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">S&amp;P 500</div>
+        <div class="valor positivo">+1.8%</div>
+      </div>
+      <div class="card">
+        <div class="label">VIX</div>
+        <div class="valor">16.1 <span class="negativo" style="font-size:13px;">(-12.3%)</span></div>
+      </div>
+      <div class="card">
+        <div class="label">Dólar (índice sintético)</div>
+        <div class="valor negativo">-0.1%</div>
+      </div>
+      <div class="card">
+        <div class="label">Mejor sector</div>
+        <div class="valor positivo">Financiero +3.8%</div>
+      </div>
+      <div class="card">
+        <div class="label">Peor sector</div>
+        <div class="valor negativo">Real Estate -1.2%</div>
+      </div>
+      <div class="card">
+        <div class="label">Spread cíclicos−defensivos</div>
+        <div class="valor positivo">+1.8%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="seccion" id="resumen">
+    <div class="num-badge"><span class="barra"></span><span class="num">01</span></div>
+    <h2 class="titulo-seccion">Resumen ejecutivo</h2>
+
+    <div class="balance-bloque">
+      <span style="font-size:13px;color:var(--gris-texto);white-space:nowrap;">Balance de la semana</span>
+      <div class="balance-pista">
+        <div class="balance-marca" style="left:80.0%;"></div>
+      </div>
+      <span class="balance-valor">+60</span>
+    </div>
+
+    <p class="parrafo">El S&P 500 avanzó +1.8% en la semana, cerrando en 7,483 puntos, en un contexto de apetito por riesgo amplio. El VIX bajó 12.3% y cerró en 16.1.</p>
+    <p class="parrafo">La rotación sectorial mostró 7 de 11 sectores en terreno positivo. Financiero lideró con +3.8%, mientras que Real Estate fue el más rezagado con -1.2%. El spread cíclicos-defensivos quedó a favor de los cíclicos (+1.8%).</p>
+    <p class="parrafo">En el frente macro, el dólar se debilitó 0.1% frente a una canasta de majors; el oro +0.8%; el WTI -0.8%; Bitcoin +2.4%.</p>
+    <p class="parrafo">El crédito high-yield superó con holgura a los Treasuries largos, un indicio de apetito por riesgo en el mercado de renta fija.</p>
+
+    <h2 class="titulo-seccion" style="margin-top:22px;font-size:16px;">Claves de la semana</h2>
+    <ul class="claves">
+      <li>S&P 500: +1.8% en la semana, cierre en 7,483.</li>
+      <li>VIX en 16.1 (-12.3% en la semana).</li>
+      <li>Sector líder: Financiero (+3.8%); más rezagado: Real Estate (-1.2%).</li>
+      <li>Dólar (índice sintético): se debilitó 0.1%.</li>
+      <li>Volumen SPY vs. promedio 4 semanas: -13.7%.</li>
+    </ul>
+  </section>
+
+  <section class="seccion" id="panorama">
+    <div class="num-badge"><span class="barra"></span><span class="num">02</span></div>
+    <h2 class="titulo-seccion">Panorama de mercado</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Índice</th><th>Cierre</th><th>Var. semanal</th><th>Mejor sesión</th><th>Peor sesión</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S&P 500</td>
+            <td>7,483.24</td>
+            <td class="positivo">+1.8%</td>
+            <td class="positivo">29 jun 2026 (+1.2%)</td>
+            <td class="negativo">1 jul 2026 (-0.2%)</td>
+          </tr>
+          <tr>
+            <td>Nasdaq Composite</td>
+            <td>25,832.67</td>
+            <td class="positivo">+2.1%</td>
+            <td class="positivo">29 jun 2026 (+2.1%)</td>
+            <td class="negativo">2 jul 2026 (-0.8%)</td>
+          </tr>
+          <tr>
+            <td>Dow Jones Industrial Average</td>
+            <td>52,900.07</td>
+            <td class="positivo">+2.0%</td>
+            <td class="positivo">2 jul 2026 (+1.1%)</td>
+            <td class="negativo">1 jul 2026 (+0.0%)</td>
+          </tr>
+          <tr>
+            <td>Russell 2000</td>
+            <td>2,996.11</td>
+            <td class="negativo">-0.5%</td>
+            <td class="positivo">30 jun 2026 (+0.5%)</td>
+            <td class="negativo">2 jul 2026 (-0.5%)</td>
+          </tr>
+          <tr>
+            <td>VIX</td>
+            <td>16.15</td>
+            <td class="negativo">-12.3%</td>
+            <td class="positivo">1 jul 2026 (+0.9%)</td>
+            <td class="negativo">30 jun 2026 (-6.8%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">Nasdaq Composite lideró entre los principales índices (+2.1%); Russell 2000 quedó más rezagado (-0.5%). La fuerte caída del VIX confirma una compresión marcada de la volatilidad implícita.</p>
+  </section>
+
+  <section class="seccion" id="sectores">
+    <div class="num-badge"><span class="barra"></span><span class="num">03</span></div>
+    <h2 class="titulo-seccion">Rotación sectorial</h2>
+    <p class="parrafo">7 de 11 sectores en positivo. Promedio cíclicos: +1.9% &middot; Promedio defensivos: +0.1%.</p>
+    <div class="barra-fila">
+      <span class="etiqueta">Financiero (XLF)</span>
+      <span class="pista"><span class="relleno pos" style="width:100.0%;"></span></span>
+      <span class="valor positivo">+3.8%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Comunicaciones (XLC)</span>
+      <span class="pista"><span class="relleno pos" style="width:84.2%;"></span></span>
+      <span class="valor positivo">+3.2%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo discrecional (XLY)</span>
+      <span class="pista"><span class="relleno pos" style="width:62.8%;"></span></span>
+      <span class="valor positivo">+2.4%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Salud (XLV)</span>
+      <span class="pista"><span class="relleno pos" style="width:55.4%;"></span></span>
+      <span class="valor positivo">+2.1%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Industrial (XLI)</span>
+      <span class="pista"><span class="relleno pos" style="width:39.1%;"></span></span>
+      <span class="valor positivo">+1.5%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Materiales (XLB)</span>
+      <span class="pista"><span class="relleno pos" style="width:20.8%;"></span></span>
+      <span class="valor positivo">+0.8%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo básico (XLP)</span>
+      <span class="pista"><span class="relleno pos" style="width:8.6%;"></span></span>
+      <span class="valor positivo">+0.3%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Tecnología (XLK)</span>
+      <span class="pista"><span class="relleno neg" style="width:7.5%;"></span></span>
+      <span class="valor negativo">-0.3%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Utilities (XLU)</span>
+      <span class="pista"><span class="relleno neg" style="width:24.9%;"></span></span>
+      <span class="valor negativo">-1.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Energía (XLE)</span>
+      <span class="pista"><span class="relleno neg" style="width:30.1%;"></span></span>
+      <span class="valor negativo">-1.2%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Real Estate (XLRE)</span>
+      <span class="pista"><span class="relleno neg" style="width:32.3%;"></span></span>
+      <span class="valor negativo">-1.2%</span>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">La rotación favoreció a los sectores cíclicos por sobre los defensivos, un patrón habitual en fases de apetito por riesgo.</p>
+  </section>
+
+  <section class="seccion" id="macro">
+    <div class="num-badge"><span class="barra"></span><span class="num">04</span></div>
+    <h2 class="titulo-seccion">Divisas y macro global</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Divisa</th><th>Cierre (par)</th><th>Var. semanal (divisa)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Euro</td>
+            <td>1.1378</td>
+            <td class="positivo">+0.1%</td>
+          </tr>
+          <tr>
+            <td>Libra esterlina</td>
+            <td>1.3279</td>
+            <td class="positivo">+0.7%</td>
+          </tr>
+          <tr>
+            <td>Yen japonés</td>
+            <td>162.5390</td>
+            <td class="negativo">-0.5%</td>
+          </tr>
+          <tr>
+            <td>Franco suizo</td>
+            <td>0.8091</td>
+            <td class="positivo">+0.2%</td>
+          </tr>
+          <tr>
+            <td>Dólar australiano</td>
+            <td>0.6892</td>
+            <td class="negativo">-0.1%</td>
+          </tr>
+          <tr>
+            <td>Dólar canadiense</td>
+            <td>1.4217</td>
+            <td class="negativo">-0.1%</td>
+          </tr>
+          <tr>
+            <td>Yuan chino</td>
+            <td>6.7942</td>
+            <td class="negativo">-0.1%</td>
+          </tr>
+          <tr>
+            <td>Peso mexicano</td>
+            <td>17.5543</td>
+            <td class="negativo">-0.3%</td>
+          </tr>
+          <tr>
+            <td>Real brasileño</td>
+            <td>5.2206</td>
+            <td class="negativo">-0.5%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Indicador</th><th>Cierre</th><th>Var. semanal</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oro</td>
+            <td>4,112.70</td>
+            <td class="positivo">+0.8%</td>
+          </tr>
+          <tr>
+            <td>WTI</td>
+            <td>68.69</td>
+            <td class="negativo">-0.8%</td>
+          </tr>
+          <tr>
+            <td>Bitcoin</td>
+            <td>61,485.30</td>
+            <td class="positivo">+2.4%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">El dólar operó sin una dirección clara frente a las majors; tanto el oro como Bitcoin avanzaron, un indicio de apetito por activos alternativos.</p>
+  </section>
+
+  <section class="seccion" id="flujos">
+    <div class="num-badge"><span class="barra"></span><span class="num">05</span></div>
+    <h2 class="titulo-seccion">Flujos: institucionales vs. minoristas (proxies)</h2>
+    <div class="barra-fila">
+      <span class="etiqueta">Equiponderado vs. cap-ponderado</span>
+      <span class="pista"><span class="relleno pos" style="width:0.7%;"></span></span>
+      <span class="valor positivo">+0.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Small caps vs. large caps</span>
+      <span class="pista"><span class="relleno neg" style="width:96.1%;"></span></span>
+      <span class="valor negativo">-2.9%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Alta beta vs. baja volatilidad</span>
+      <span class="pista"><span class="relleno neg" style="width:100.0%;"></span></span>
+      <span class="valor negativo">-3.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Crédito high-yield vs. Treasuries largos</span>
+      <span class="pista"><span class="relleno pos" style="width:64.8%;"></span></span>
+      <span class="valor positivo">+2.0%</span>
+    </div>
+    <p class="parrafo" style="margin-top:10px;">Volumen de SPY vs. promedio de las 4 semanas previas: <strong class="negativo">-13.7%</strong>.</p>
+    <p class="parrafo">El crédito high-yield superó con holgura a los Treasuries largos, un indicio de apetito por riesgo en el mercado de renta fija.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>Semana reportada: 29 jun 2026 — 3 jul 2026</div>
+  <div class="disclaimer">Informe generado automáticamente con datos públicos. No constituye recomendación de inversión.</div>
+</footer>
+</body>
+</html>

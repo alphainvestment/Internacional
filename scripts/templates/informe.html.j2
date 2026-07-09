@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ titulo }} — {{ titulo_sitio }}</title>
+<style>{{ css }}</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap">
+    <p class="kicker">{{ titulo_sitio }}</p>
+    <p class="rango-fechas">Semana del {{ semana.lunes | fecha }} al {{ semana.viernes | fecha }} &middot; Publicado {{ fecha_generacion | fecha }}</p>
+    <h1 class="titulo-informe">{{ titulo }}</h1>
+    <p class="bajada">{{ bajada }}</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">S&amp;P 500</div>
+        <div class="valor {{ clase_var(s1.spx.var) }}">{{ s1.spx.var | pct }}</div>
+      </div>
+      {% if s1.vix %}
+      <div class="card">
+        <div class="label">VIX</div>
+        <div class="valor">{{ s1.vix.cierre | num(1) }} <span class="{{ clase_var(s1.vix.var) }}" style="font-size:13px;">({{ s1.vix.var | pct }})</span></div>
+      </div>
+      {% endif %}
+      {% if s3.disponible %}
+      <div class="card">
+        <div class="label">Dólar (índice sintético)</div>
+        <div class="valor {{ clase_var(s3.indice_usd) }}">{{ s3.indice_usd | pct }}</div>
+      </div>
+      {% endif %}
+      {% if s2.disponible %}
+      <div class="card">
+        <div class="label">Mejor sector</div>
+        <div class="valor positivo">{{ s2.mejor.nombre }} {{ s2.mejor.var | pct }}</div>
+      </div>
+      <div class="card">
+        <div class="label">Peor sector</div>
+        <div class="valor negativo">{{ s2.peor.nombre }} {{ s2.peor.var | pct }}</div>
+      </div>
+      <div class="card">
+        <div class="label">Spread cíclicos−defensivos</div>
+        <div class="valor {{ clase_var(s2.spread_ciclicos_defensivos) }}">{{ s2.spread_ciclicos_defensivos | pct }}</div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="seccion" id="resumen">
+    <div class="num-badge"><span class="barra"></span><span class="num">01</span></div>
+    <h2 class="titulo-seccion">Resumen ejecutivo</h2>
+
+    <div class="balance-bloque">
+      <span style="font-size:13px;color:var(--gris-texto);white-space:nowrap;">Balance de la semana</span>
+      <div class="balance-pista">
+        <div class="balance-marca" style="left:{{ 50 + (balance / 2) }}%;"></div>
+      </div>
+      <span class="balance-valor">{{ "%+d" | format(balance) }}</span>
+    </div>
+
+    {% for parrafo in resumen %}
+    <p class="parrafo">{{ parrafo }}</p>
+    {% endfor %}
+
+    <h2 class="titulo-seccion" style="margin-top:22px;font-size:16px;">Claves de la semana</h2>
+    <ul class="claves">
+      {% for clave in claves %}
+      <li>{{ clave }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="seccion" id="panorama">
+    <div class="num-badge"><span class="barra"></span><span class="num">02</span></div>
+    <h2 class="titulo-seccion">Panorama de mercado</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Índice</th><th>Cierre</th><th>Var. semanal</th><th>Mejor sesión</th><th>Peor sesión</th></tr>
+        </thead>
+        <tbody>
+          {% for ticker, ind in s1.indices.items() %}
+          <tr>
+            <td>{{ ind.nombre }}</td>
+            <td>{{ ind.cierre | num(2) }}</td>
+            <td class="{{ clase_var(ind.var) }}">{{ ind.var | pct }}</td>
+            <td class="positivo">{{ ind.mejor_sesion.fecha | fecha }} ({{ ind.mejor_sesion.var | pct }})</td>
+            <td class="negativo">{{ ind.peor_sesion.fecha | fecha }} ({{ ind.peor_sesion.var | pct }})</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if lectura_panorama %}
+    <p class="parrafo lectura">{{ lectura_panorama }}</p>
+    {% endif %}
+  </section>
+
+  <section class="seccion" id="sectores">
+    <div class="num-badge"><span class="barra"></span><span class="num">03</span></div>
+    <h2 class="titulo-seccion">Rotación sectorial</h2>
+    {% if s2.disponible %}
+    <p class="parrafo">{{ s2.positivos }} de {{ s2.total }} sectores en positivo. Promedio cíclicos: {{ s2.prom_ciclicos | pct }} &middot; Promedio defensivos: {{ s2.prom_defensivos | pct }}.</p>
+    {% for sec in s2.sectores %}
+    <div class="barra-fila">
+      <span class="etiqueta">{{ sec.nombre }} ({{ sec.ticker }})</span>
+      <span class="pista"><span class="relleno {{ 'pos' if sec.var >= 0 else 'neg' }}" style="width:{{ sec.barra_pct }}%;"></span></span>
+      <span class="valor {{ clase_var(sec.var) }}">{{ sec.var | pct }}</span>
+    </div>
+    {% endfor %}
+    {% if lectura_sectores %}
+    <p class="parrafo lectura" style="margin-top:10px;">{{ lectura_sectores }}</p>
+    {% endif %}
+    {% else %}
+    <p class="seccion-no-disp">Datos no disponibles esta semana.</p>
+    {% endif %}
+  </section>
+
+  <section class="seccion" id="macro">
+    <div class="num-badge"><span class="barra"></span><span class="num">04</span></div>
+    <h2 class="titulo-seccion">Divisas y macro global</h2>
+    {% if s3.disponible %}
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Divisa</th><th>Cierre (par)</th><th>Var. semanal (divisa)</th></tr>
+        </thead>
+        <tbody>
+          {% for par in s3.fx %}
+          <tr>
+            <td>{{ par.nombre }}</td>
+            <td>{{ par.cierre | num(4) }}</td>
+            <td class="{{ clase_var(par.var_divisa) }}">{{ par.var_divisa | pct }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Indicador</th><th>Cierre</th><th>Var. semanal</th></tr>
+        </thead>
+        <tbody>
+          {% for ticker, m in s3.macro.items() %}
+          <tr>
+            <td>{{ m.nombre }}</td>
+            <td>{{ m.cierre | num(2) }}</td>
+            <td class="{{ clase_var(m.var) }}">{{ m.var | pct }}</td>
+          </tr>
+          {% endfor %}
+          {% if s3.tasa_10y %}
+          <tr>
+            <td>Tasa 10Y (FRED)</td>
+            <td>{{ s3.tasa_10y.nivel | num(2) }}%</td>
+            <td class="{{ 'positivo' if s3.tasa_10y.var_pb >= 0 else 'negativo' }}">{{ "%+.0f" | format(s3.tasa_10y.var_pb) }} pb</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    {% if lectura_macro %}
+    <p class="parrafo lectura">{{ lectura_macro }}</p>
+    {% endif %}
+    {% else %}
+    <p class="seccion-no-disp">Datos no disponibles esta semana.</p>
+    {% endif %}
+  </section>
+
+  <section class="seccion" id="flujos">
+    <div class="num-badge"><span class="barra"></span><span class="num">05</span></div>
+    <h2 class="titulo-seccion">Flujos: institucionales vs. minoristas (proxies)</h2>
+    {% if s4.disponible %}
+    {% for spread in s4.spreads %}
+    <div class="barra-fila">
+      <span class="etiqueta">{{ spread.etiqueta }}</span>
+      <span class="pista"><span class="relleno {{ 'pos' if spread.valor >= 0 else 'neg' }}" style="width:{{ spread.barra_pct }}%;"></span></span>
+      <span class="valor {{ clase_var(spread.valor) }}">{{ spread.valor | pct }}</span>
+    </div>
+    {% endfor %}
+    {% if s4.volumen_relativo is not none %}
+    <p class="parrafo" style="margin-top:10px;">Volumen de SPY vs. promedio de las 4 semanas previas: <strong class="{{ clase_var(s4.volumen_relativo) }}">{{ s4.volumen_relativo | pct }}</strong>.</p>
+    {% endif %}
+    {% if lectura_flujos %}
+    <p class="parrafo">{{ lectura_flujos }}</p>
+    {% endif %}
+    {% else %}
+    <p class="seccion-no-disp">Datos no disponibles esta semana.</p>
+    {% endif %}
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>Semana reportada: {{ semana.lunes | fecha }} — {{ semana.viernes | fecha }}</div>
+  <div class="disclaimer">{{ disclaimer }}</div>
+</footer>
+</body>
+</html>

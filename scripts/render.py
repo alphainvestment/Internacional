@@ -1,0 +1,315 @@
+"""Generación del HTML final (informe semanal + index.html) con Jinja2.
+
+Cada informe es un único archivo HTML autocontenido: CSS inline, sin JS,
+sin librerías externas, sin imágenes. Los "gráficos" de barras se hacen
+con <div> + CSS.
+"""
+
+import os
+
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+import config
+
+_TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "templates")
+
+_env = Environment(
+    loader=FileSystemLoader(_TEMPLATES_DIR),
+    autoescape=select_autoescape(["html"]),
+    trim_blocks=True,
+    lstrip_blocks=True,
+)
+
+
+def _fmt_pct(x, decimales=1, signo=True):
+    if x is None:
+        return "s/d"
+    valor = round(x * 100, decimales)
+    if valor == 0:
+        valor = 0.0  # evita "-0.0%" cuando el redondeo cruza el cero
+    prefijo = "+" if signo and valor >= 0 else ""
+    return f"{prefijo}{valor:.{decimales}f}%"
+
+
+def _fmt_num(x, decimales=0):
+    if x is None:
+        return "s/d"
+    return f"{x:,.{decimales}f}"
+
+
+def _fmt_fecha(fecha):
+    if fecha is None:
+        return "s/d"
+    meses = [
+        "ene", "feb", "mar", "abr", "may", "jun",
+        "jul", "ago", "sep", "oct", "nov", "dic",
+    ]
+    return f"{fecha.day} {meses[fecha.month - 1]} {fecha.year}"
+
+
+_env.filters["pct"] = _fmt_pct
+_env.filters["num"] = _fmt_num
+_env.filters["fecha"] = _fmt_fecha
+
+
+CSS_BASE = """
+:root {
+  --navy: #16233b;
+  --navy-light: #7fa6e0;
+  --verde: #2ecf82;
+  --rojo: #ff6b6f;
+  --gris-borde: rgba(255,255,255,0.10);
+  --gris-texto: #96a2b8;
+  --gris-fondo: #16202e;
+  --bg: #0c1420;
+  --bg-cabecera: #0a1220;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
+  color: #e6ebf3;
+  background: var(--bg);
+  line-height: 1.5;
+}
+a { color: var(--navy-light); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header.cabecera {
+  background: var(--bg-cabecera);
+  color: #fff;
+  padding: 28px 0 24px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aebcd6;
+  margin: 0 0 10px;
+}
+.rango-fechas {
+  font-size: 13px;
+  color: #c7d2e6;
+  margin: 4px 0 18px;
+}
+h1.titulo-informe {
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.25;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+p.bajada {
+  font-size: 15px;
+  color: #dbe3f0;
+  margin: 0;
+  max-width: 720px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 130px;
+  flex: 1 1 130px;
+}
+.card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aebcd6;
+  margin-bottom: 4px;
+}
+.card .valor {
+  font-size: 18px;
+  font-weight: 600;
+}
+main { padding: 30px 0 10px; }
+section.seccion { margin-bottom: 40px; }
+.num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.num-badge .barra {
+  width: 26px;
+  height: 4px;
+  background: var(--navy-light);
+  border-radius: 2px;
+}
+.num-badge .num {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gris-texto);
+  font-weight: 600;
+}
+h2.titulo-seccion {
+  font-size: 19px;
+  color: var(--navy-light);
+  margin: 0 0 14px;
+}
+p.parrafo { margin: 0 0 12px; font-size: 14.5px; color: #c6cede; }
+p.parrafo.lectura { color: #96a2b8; font-style: italic; }
+.positivo { color: var(--verde); font-weight: 600; }
+.negativo { color: var(--rojo); font-weight: 600; }
+.tabla-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+th {
+  text-align: left;
+  color: var(--navy-light);
+  border-bottom: 2px solid var(--navy-light);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--gris-borde);
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--gris-fondo); }
+.barra-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.barra-fila .etiqueta {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.barra-fila .pista {
+  flex: 1;
+  background: var(--gris-fondo);
+  border-radius: 3px;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.barra-fila .relleno {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.barra-fila .relleno.pos { background: var(--verde); }
+.barra-fila .relleno.neg { background: var(--rojo); }
+.barra-fila .valor {
+  width: 64px;
+  text-align: right;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+ul.claves { margin: 0; padding-left: 20px; }
+ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.balance-bloque {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 18px;
+}
+.balance-pista {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--rojo), var(--gris-fondo) 50%, var(--verde));
+  position: relative;
+}
+.balance-marca {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 18px;
+  background: #e6ebf3;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.balance-valor { font-size: 16px; font-weight: 700; color: var(--navy-light); width: 60px; text-align: right; }
+.seccion-no-disp {
+  color: var(--gris-texto);
+  font-style: italic;
+  font-size: 14px;
+  padding: 14px;
+  background: var(--gris-fondo);
+  border-radius: 6px;
+}
+footer {
+  border-top: 1px solid var(--gris-borde);
+  padding: 20px 0 40px;
+  color: var(--gris-texto);
+  font-size: 12.5px;
+}
+footer .disclaimer { margin-top: 6px; }
+.lista-informes { list-style: none; margin: 0; padding: 0; }
+.lista-informes li {
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 16px 0;
+}
+.lista-informes .fecha-item {
+  font-size: 12px;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.lista-informes a.titulo-item {
+  font-size: 16px;
+  color: var(--navy-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lista-informes a.titulo-item:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .cards { gap: 8px; }
+  .card { min-width: 120px; }
+  .barra-fila .etiqueta { width: 92px; font-size: 12px; }
+  h1.titulo-informe { font-size: 21px; }
+}
+"""
+
+
+def _clase_var(x):
+    if x is None:
+        return ""
+    return "positivo" if x >= 0 else "negativo"
+
+
+def render_informe(contexto, salida_path):
+    """Renderiza el HTML del informe semanal y lo escribe en salida_path."""
+    tpl = _env.get_template("informe.html.j2")
+    contexto = dict(contexto)
+    contexto["css"] = CSS_BASE
+    contexto["clase_var"] = _clase_var
+    contexto["titulo_sitio"] = config.TITULO_SITIO
+    contexto["disclaimer"] = config.DISCLAIMER
+    html = tpl.render(**contexto)
+    os.makedirs(os.path.dirname(salida_path), exist_ok=True)
+    with open(salida_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    return html
+
+
+def render_index(informes, salida_path):
+    """informes: lista de dicts {fecha (date), lunes, viernes, titulo, archivo}
+    ya ordenada reverse-cronológicamente."""
+    tpl = _env.get_template("index.html.j2")
+    html = tpl.render(
+        css=CSS_BASE,
+        titulo_sitio=config.TITULO_SITIO,
+        disclaimer=config.DISCLAIMER,
+        informes=informes,
+    )
+    with open(salida_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    return html
