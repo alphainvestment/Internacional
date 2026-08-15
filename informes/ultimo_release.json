@@ -1,16 +1,16 @@
 {
-  "tag": "internacional-2026-08-07",
-  "titulo": "El S&P 500 avanzó (+3.6%) en una semana de apetito por riesgo amplio",
+  "tag": "internacional-2026-08-14",
+  "titulo": "El S&P 500 avanzó (+0.4%) en una semana de semana de consolidación",
   "claves": [
-    "S&P 500: +3.6% en la semana, cierre en 7,758.",
-    "VIX en 14.9 (-6.8% en la semana).",
-    "Sector líder: Tecnología (+7.2%); más rezagado: Energía (-3.4%).",
-    "Dólar (índice sintético): se debilitó 0.5%.",
-    "Tasa 10Y: 4.69% (-6 pb en la semana).",
-    "Volumen SPY vs. promedio 4 semanas: +6.5%.",
-    "Amplitud: 347 suben, 138 bajan, 17 planos de 502 componentes (69% en positivo)."
+    "S&P 500: +0.4% en la semana, cierre en 7,786.",
+    "VIX en 14.2 (-4.4% en la semana).",
+    "Sector líder: Energía (+7.7%); más rezagado: Consumo discrecional (-1.4%).",
+    "Dólar (índice sintético): se debilitó 0.2%.",
+    "Tasa 10Y: 4.63% (-2 pb en la semana).",
+    "Volumen SPY vs. promedio 4 semanas: -29.1%.",
+    "Amplitud: 274 suben, 185 bajan, 44 planos de 503 componentes (54% en positivo)."
   ],
-  "url": "https://alphainvestment.github.io/Internacional/informes/2026-08-07.html",
-  "lunes": "2026-08-03",
-  "viernes": "2026-08-07"
+  "url": "https://alphainvestment.github.io/Internacional/informes/2026-08-14.html",
+  "lunes": "2026-08-10",
+  "viernes": "2026-08-14"
 }
