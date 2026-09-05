@@ -1,16 +1,16 @@
 {
-  "tag": "internacional-2026-08-28",
-  "titulo": "El S&P 500 avanzó (+0.7%) en una semana de semana mixta",
+  "tag": "internacional-2026-09-04",
+  "titulo": "El S&P 500 avanzó (+0.1%) en una semana de semana de consolidación",
   "claves": [
-    "S&P 500: +0.7% en la semana, cierre en 7,731.",
-    "VIX en 14.5 (-4.1% en la semana).",
-    "Sector líder: Tecnología (+2.9%); más rezagado: Energía (-2.1%).",
-    "Dólar (índice sintético): se fortaleció 0.3%.",
-    "Tasa 10Y: 4.67% (-7 pb en la semana).",
-    "Volumen SPY vs. promedio 4 semanas: -33.4%.",
-    "Amplitud: 208 suben, 238 bajan, 55 planos de 501 componentes (42% en positivo)."
+    "S&P 500: +0.1% en la semana, cierre en 7,719.",
+    "VIX en 14.5 (+0.7% en la semana).",
+    "Sector líder: Energía (+2.2%); más rezagado: Consumo discrecional (-2.0%).",
+    "Dólar (índice sintético): se debilitó 0.2%.",
+    "Tasa 10Y: 4.77% (+4 pb en la semana).",
+    "Volumen SPY vs. promedio 4 semanas: -5.9%.",
+    "Amplitud: 189 suben, 275 bajan, 36 planos de 500 componentes (38% en positivo)."
   ],
-  "url": "https://alphainvestment.github.io/Internacional/informes/2026-08-28.html",
-  "lunes": "2026-08-24",
-  "viernes": "2026-08-28"
+  "url": "https://alphainvestment.github.io/Internacional/informes/2026-09-04.html",
+  "lunes": "2026-08-31",
+  "viernes": "2026-09-04"
 }
