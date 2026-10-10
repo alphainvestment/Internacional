@@ -1,16 +1,16 @@
 {
-  "tag": "internacional-2026-10-02",
-  "titulo": "El S&P 500 retrocedió (-0.3%) en una semana de semana de consolidación",
+  "tag": "internacional-2026-10-09",
+  "titulo": "El S&P 500 avanzó (+1.2%) en una semana de semana mixta",
   "claves": [
-    "S&P 500: -0.3% en la semana, cierre en 7,723.",
-    "VIX en 15.3 (+3.0% en la semana).",
-    "Sector líder: Tecnología (+1.8%); más rezagado: Salud (-2.6%).",
-    "Dólar (índice sintético): se fortaleció 0.4%.",
-    "Tasa 10Y: 5.24% (+7 pb en la semana).",
-    "Volumen SPY vs. promedio 4 semanas: +6.9%.",
-    "Amplitud: 161 suben, 314 bajan, 25 planos de 500 componentes (32% en positivo)."
+    "S&P 500: +1.2% en la semana, cierre en 7,812.",
+    "VIX en 14.8 (-3.1% en la semana).",
+    "Sector líder: Utilities (+4.0%); más rezagado: Tecnología (-0.5%).",
+    "Dólar (índice sintético): se fortaleció 0.1%.",
+    "Tasa 10Y: 5.22% (-6 pb en la semana).",
+    "Volumen SPY vs. promedio 4 semanas: -25.1%.",
+    "Amplitud: 331 suben, 136 bajan, 31 planos de 498 componentes (66% en positivo)."
   ],
-  "url": "https://alphainvestment.github.io/Internacional/informes/2026-10-02.html",
-  "lunes": "2026-09-28",
-  "viernes": "2026-10-02"
+  "url": "https://alphainvestment.github.io/Internacional/informes/2026-10-09.html",
+  "lunes": "2026-10-05",
+  "viernes": "2026-10-09"
 }
