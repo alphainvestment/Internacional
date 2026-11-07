@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El S&P 500 retrocedió (-2.7%) en una semana de semana mixta — INFORME SEMANAL DE MERCADO — INTERNACIONAL</title>
+<style>
+:root {
+  --navy: #16233b;
+  --navy-light: #7fa6e0;
+  --verde: #2ecf82;
+  --rojo: #ff6b6f;
+  --gris-borde: rgba(255,255,255,0.10);
+  --gris-texto: #96a2b8;
+  --gris-fondo: #16202e;
+  --bg: #0c1420;
+  --bg-cabecera: #0a1220;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
+  color: #e6ebf3;
+  background: var(--bg);
+  line-height: 1.5;
+}
+a { color: var(--navy-light); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header.cabecera {
+  background: var(--bg-cabecera);
+  color: #fff;
+  padding: 28px 0 24px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aebcd6;
+  margin: 0 0 10px;
+}
+.rango-fechas {
+  font-size: 13px;
+  color: #c7d2e6;
+  margin: 4px 0 18px;
+}
+h1.titulo-informe {
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.25;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+p.bajada {
+  font-size: 15px;
+  color: #dbe3f0;
+  margin: 0;
+  max-width: 720px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 130px;
+  flex: 1 1 130px;
+}
+.card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aebcd6;
+  margin-bottom: 4px;
+}
+.card .valor {
+  font-size: 18px;
+  font-weight: 600;
+}
+main { padding: 30px 0 10px; }
+section.seccion { margin-bottom: 40px; }
+.num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.num-badge .barra {
+  width: 26px;
+  height: 4px;
+  background: var(--navy-light);
+  border-radius: 2px;
+}
+.num-badge .num {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gris-texto);
+  font-weight: 600;
+}
+h2.titulo-seccion {
+  font-size: 19px;
+  color: var(--navy-light);
+  margin: 0 0 14px;
+}
+p.parrafo { margin: 0 0 12px; font-size: 14.5px; color: #c6cede; }
+p.parrafo.lectura { color: #96a2b8; font-style: italic; }
+.positivo { color: var(--verde); font-weight: 600; }
+.negativo { color: var(--rojo); font-weight: 600; }
+.tabla-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+th {
+  text-align: left;
+  color: var(--navy-light);
+  border-bottom: 2px solid var(--navy-light);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--gris-borde);
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--gris-fondo); }
+.barra-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.barra-fila .etiqueta {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.barra-fila .pista {
+  flex: 1;
+  background: var(--gris-fondo);
+  border-radius: 3px;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.barra-fila .relleno {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.barra-fila .relleno.pos { background: var(--verde); }
+.barra-fila .relleno.neg { background: var(--rojo); }
+.barra-fila .valor {
+  width: 64px;
+  text-align: right;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+ul.claves { margin: 0; padding-left: 20px; }
+ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 18px;
+}
+.stat {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 150px;
+  flex: 1 1 150px;
+}
+.stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gris-texto);
+  margin-bottom: 4px;
+}
+.stat .valor { font-size: 17px; font-weight: 600; color: #e6ebf3; }
+.histograma {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+.histograma .barra-vert {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.histograma .conteo { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.histograma .columna { width: 100%; max-width: 46px; border-radius: 3px 3px 0 0; min-height: 3px; }
+.histograma .columna.pos { background: var(--verde); }
+.histograma .columna.neg { background: var(--rojo); }
+.histograma .etiqueta {
+  font-size: 10.5px;
+  color: var(--gris-texto);
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.25;
+}
+h3.subtitulo { font-size: 14.5px; color: var(--navy-light); margin: 18px 0 8px; }
+.balance-bloque {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 18px;
+}
+.balance-pista {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--rojo), var(--gris-fondo) 50%, var(--verde));
+  position: relative;
+}
+.balance-marca {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 18px;
+  background: #e6ebf3;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.balance-valor { font-size: 16px; font-weight: 700; color: var(--navy-light); width: 60px; text-align: right; }
+.seccion-no-disp {
+  color: var(--gris-texto);
+  font-style: italic;
+  font-size: 14px;
+  padding: 14px;
+  background: var(--gris-fondo);
+  border-radius: 6px;
+}
+footer {
+  border-top: 1px solid var(--gris-borde);
+  padding: 20px 0 40px;
+  color: var(--gris-texto);
+  font-size: 12.5px;
+}
+footer .disclaimer { margin-top: 6px; }
+.lista-informes { list-style: none; margin: 0; padding: 0; }
+.lista-informes li {
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 16px 0;
+}
+.lista-informes .fecha-item {
+  font-size: 12px;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.lista-informes a.titulo-item {
+  font-size: 16px;
+  color: var(--navy-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lista-informes a.titulo-item:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .cards { gap: 8px; }
+  .card { min-width: 120px; }
+  .barra-fila .etiqueta { width: 92px; font-size: 12px; }
+  h1.titulo-informe { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap">
+    <p class="kicker">INFORME SEMANAL DE MERCADO — INTERNACIONAL</p>
+    <p class="rango-fechas">Semana del 2 nov 2026 al 6 nov 2026 &middot; Publicado 7 nov 2026</p>
+    <h1 class="titulo-informe">El S&P 500 retrocedió (-2.7%) en una semana de semana mixta</h1>
+    <p class="bajada">5 de 11 sectores en positivo, liderados por Comunicaciones (+4.9%); el dólar se debilitó 0.3% frente a las majors.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">S&amp;P 500</div>
+        <div class="valor negativo">-2.7%</div>
+      </div>
+      <div class="card">
+        <div class="label">VIX</div>
+        <div class="valor">25.6 <span class="positivo" style="font-size:13px;">(+32.0%)</span></div>
+      </div>
+      <div class="card">
+        <div class="label">Dólar (índice sintético)</div>
+        <div class="valor negativo">-0.3%</div>
+      </div>
+      <div class="card">
+        <div class="label">Mejor sector</div>
+        <div class="valor positivo">Comunicaciones +4.9%</div>
+      </div>
+      <div class="card">
+        <div class="label">Peor sector</div>
+        <div class="valor negativo">Energía -12.0%</div>
+      </div>
+      <div class="card">
+        <div class="label">Spread cíclicos−defensivos</div>
+        <div class="valor negativo">-1.2%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="seccion" id="resumen">
+    <div class="num-badge"><span class="barra"></span><span class="num">01</span></div>
+    <h2 class="titulo-seccion">Resumen ejecutivo</h2>
+
+    <div class="balance-bloque">
+      <span style="font-size:13px;color:var(--gris-texto);white-space:nowrap;">Balance de la semana</span>
+      <div class="balance-pista">
+        <div class="balance-marca" style="left:24.0%;"></div>
+      </div>
+      <span class="balance-valor">-52</span>
+    </div>
+
+    <p class="parrafo">El S&P 500 retrocedió -2.7% en la semana, cerrando en 7,377 puntos, en un contexto de semana mixta. El VIX subió 32.0% y cerró en 25.6. La amplitud de mercado fue de 51% de componentes del S&P 500 en positivo.</p>
+    <p class="parrafo">La rotación sectorial mostró 5 de 11 sectores en terreno positivo. Comunicaciones lideró con +4.9%, mientras que Energía fue el más rezagado con -12.0%. El spread cíclicos-defensivos quedó a favor de los defensivos (-1.2%).</p>
+    <p class="parrafo">En el frente macro, el dólar se debilitó 0.3% frente a una canasta de majors; la tasa a 10 años bajó 10 pb hasta 4.84%; el oro +4.5%; el WTI -12.8%; Bitcoin -1.9%.</p>
+    <p class="parrafo">Los proxies de flujos muestran señales mixtas, sin un sesgo claro entre apetito institucional y minorista.</p>
+
+    <h2 class="titulo-seccion" style="margin-top:22px;font-size:16px;">Claves de la semana</h2>
+    <ul class="claves">
+      <li>S&P 500: -2.7% en la semana, cierre en 7,377.</li>
+      <li>VIX en 25.6 (+32.0% en la semana).</li>
+      <li>Sector líder: Comunicaciones (+4.9%); más rezagado: Energía (-12.0%).</li>
+      <li>Dólar (índice sintético): se debilitó 0.3%.</li>
+      <li>Tasa 10Y: 4.84% (-10 pb en la semana).</li>
+      <li>Volumen SPY vs. promedio 4 semanas: +68.5%.</li>
+      <li>Amplitud: 254 suben, 225 bajan, 18 planos de 497 componentes (51% en positivo).</li>
+    </ul>
+  </section>
+
+  <section class="seccion" id="panorama">
+    <div class="num-badge"><span class="barra"></span><span class="num">02</span></div>
+    <h2 class="titulo-seccion">Panorama de mercado</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Índice</th><th>Cierre</th><th>Var. semanal</th><th>Mejor sesión</th><th>Peor sesión</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S&P 500</td>
+            <td>7,376.86</td>
+            <td class="negativo">-2.7%</td>
+            <td class="positivo">4 nov 2026 (+1.6%)</td>
+            <td class="negativo">5 nov 2026 (-4.4%)</td>
+          </tr>
+          <tr>
+            <td>Nasdaq Composite</td>
+            <td>24,579.43</td>
+            <td class="negativo">-3.4%</td>
+            <td class="positivo">4 nov 2026 (+1.4%)</td>
+            <td class="negativo">5 nov 2026 (-5.5%)</td>
+          </tr>
+          <tr>
+            <td>Dow Jones Industrial Average</td>
+            <td>51,285.73</td>
+            <td class="negativo">-0.9%</td>
+            <td class="positivo">4 nov 2026 (+3.0%)</td>
+            <td class="negativo">5 nov 2026 (-3.4%)</td>
+          </tr>
+          <tr>
+            <td>Russell 2000</td>
+            <td>2,754.11</td>
+            <td class="negativo">-2.1%</td>
+            <td class="positivo">4 nov 2026 (+1.6%)</td>
+            <td class="negativo">5 nov 2026 (-4.4%)</td>
+          </tr>
+          <tr>
+            <td>VIX</td>
+            <td>25.64</td>
+            <td class="positivo">+32.0%</td>
+            <td class="positivo">5 nov 2026 (+69.7%)</td>
+            <td class="negativo">4 nov 2026 (-20.3%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">Dow Jones Industrial Average lideró entre los principales índices (-0.9%); Nasdaq Composite quedó más rezagado (-3.4%). El salto del VIX refleja una demanda de cobertura más alta de lo habitual.</p>
+  </section>
+
+  <section class="seccion" id="sectores">
+    <div class="num-badge"><span class="barra"></span><span class="num">03</span></div>
+    <h2 class="titulo-seccion">Rotación sectorial</h2>
+    <p class="parrafo">5 de 11 sectores en positivo. Promedio cíclicos: -0.8% &middot; Promedio defensivos: +0.5%.</p>
+    <div class="barra-fila">
+      <span class="etiqueta">Comunicaciones (XLC)</span>
+      <span class="pista"><span class="relleno pos" style="width:40.8%;"></span></span>
+      <span class="valor positivo">+4.9%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Real Estate (XLRE)</span>
+      <span class="pista"><span class="relleno pos" style="width:16.0%;"></span></span>
+      <span class="valor positivo">+1.9%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo discrecional (XLY)</span>
+      <span class="pista"><span class="relleno pos" style="width:15.9%;"></span></span>
+      <span class="valor positivo">+1.9%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Financiero (XLF)</span>
+      <span class="pista"><span class="relleno pos" style="width:9.6%;"></span></span>
+      <span class="valor positivo">+1.2%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo básico (XLP)</span>
+      <span class="pista"><span class="relleno pos" style="width:6.2%;"></span></span>
+      <span class="valor positivo">+0.7%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Salud (XLV)</span>
+      <span class="pista"><span class="relleno neg" style="width:0.3%;"></span></span>
+      <span class="valor negativo">+0.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Utilities (XLU)</span>
+      <span class="pista"><span class="relleno neg" style="width:5.8%;"></span></span>
+      <span class="valor negativo">-0.7%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Materiales (XLB)</span>
+      <span class="pista"><span class="relleno neg" style="width:12.5%;"></span></span>
+      <span class="valor negativo">-1.5%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Industrial (XLI)</span>
+      <span class="pista"><span class="relleno neg" style="width:23.6%;"></span></span>
+      <span class="valor negativo">-2.8%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Tecnología (XLK)</span>
+      <span class="pista"><span class="relleno neg" style="width:68.6%;"></span></span>
+      <span class="valor negativo">-8.2%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Energía (XLE)</span>
+      <span class="pista"><span class="relleno neg" style="width:100.0%;"></span></span>
+      <span class="valor negativo">-12.0%</span>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">Los sectores defensivos superaron a los cíclicos, un sesgo más cauteloso dentro de la rotación semanal.</p>
+  </section>
+
+  <section class="seccion" id="macro">
+    <div class="num-badge"><span class="barra"></span><span class="num">04</span></div>
+    <h2 class="titulo-seccion">Divisas y macro global</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Divisa</th><th>Cierre (par)</th><th>Var. semanal (divisa)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Euro</td>
+            <td>1.1228</td>
+            <td class="positivo">+0.4%</td>
+          </tr>
+          <tr>
+            <td>Libra esterlina</td>
+            <td>1.3456</td>
+            <td class="positivo">+0.6%</td>
+          </tr>
+          <tr>
+            <td>Yen japonés</td>
+            <td>157.4980</td>
+            <td class="positivo">+0.2%</td>
+          </tr>
+          <tr>
+            <td>Franco suizo</td>
+            <td>0.8154</td>
+            <td class="positivo">+1.0%</td>
+          </tr>
+          <tr>
+            <td>Dólar australiano</td>
+            <td>0.6931</td>
+            <td class="negativo">-1.4%</td>
+          </tr>
+          <tr>
+            <td>Dólar canadiense</td>
+            <td>1.4017</td>
+            <td class="negativo">-0.2%</td>
+          </tr>
+          <tr>
+            <td>Yuan chino</td>
+            <td>6.6880</td>
+            <td class="negativo">-0.4%</td>
+          </tr>
+          <tr>
+            <td>Peso mexicano</td>
+            <td>18.7809</td>
+            <td class="positivo">+0.4%</td>
+          </tr>
+          <tr>
+            <td>Real brasileño</td>
+            <td>5.5035</td>
+            <td class="negativo">-2.2%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Indicador</th><th>Cierre</th><th>Var. semanal</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oro</td>
+            <td>4,074.90</td>
+            <td class="positivo">+4.5%</td>
+          </tr>
+          <tr>
+            <td>WTI</td>
+            <td>90.83</td>
+            <td class="negativo">-12.8%</td>
+          </tr>
+          <tr>
+            <td>Bitcoin</td>
+            <td>75,746.93</td>
+            <td class="negativo">-1.9%</td>
+          </tr>
+          <tr>
+            <td>Tasa 10Y (FRED)</td>
+            <td>4.84%</td>
+            <td class="negativo">-10 pb</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">El dólar operó sin una dirección clara frente a las majors; la tasa a 10 años bajó 10 pb, un alivio para los activos de mayor duración.</p>
+  </section>
+
+  <section class="seccion" id="flujos">
+    <div class="num-badge"><span class="barra"></span><span class="num">05</span></div>
+    <h2 class="titulo-seccion">Flujos: institucionales vs. minoristas (proxies)</h2>
+    <div class="barra-fila">
+      <span class="etiqueta">Equiponderado vs. cap-ponderado</span>
+      <span class="pista"><span class="relleno pos" style="width:24.0%;"></span></span>
+      <span class="valor positivo">+1.7%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Small caps vs. large caps</span>
+      <span class="pista"><span class="relleno pos" style="width:9.7%;"></span></span>
+      <span class="valor positivo">+0.7%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Alta beta vs. baja volatilidad</span>
+      <span class="pista"><span class="relleno neg" style="width:100.0%;"></span></span>
+      <span class="valor negativo">-7.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Crédito high-yield vs. Treasuries largos</span>
+      <span class="pista"><span class="relleno neg" style="width:5.1%;"></span></span>
+      <span class="valor negativo">-0.4%</span>
+    </div>
+    <p class="parrafo" style="margin-top:10px;">Volumen de SPY vs. promedio de las 4 semanas previas: <strong class="positivo">+68.5%</strong>.</p>
+    <p class="parrafo">Los proxies de flujos muestran señales mixtas, sin un sesgo claro entre apetito institucional y minorista.</p>
+  </section>
+
+  <section class="seccion" id="amplitud">
+    <div class="num-badge"><span class="barra"></span><span class="num">06</span></div>
+    <h2 class="titulo-seccion">Amplitud del mercado</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Suben / Bajan / Planos</div>
+        <div class="valor">254 / 225 / 18</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud</div>
+        <div class="valor">51%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno promedio (cías.)</div>
+        <div class="valor negativo">-1.0%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno mediana (cías.)</div>
+        <div class="valor positivo">+0.3%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 50</div>
+        <div class="valor">60%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 200</div>
+        <div class="valor">58%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud media diaria</div>
+        <div class="valor">46%</div>
+      </div>
+    </div>
+    <p class="parrafo">N efectivo: 497 componentes del S&amp;P 500 (retorno del índice: -2.7%).</p>
+    <p class="parrafo lectura">La amplitud fue intermedia, con 51% de los componentes en positivo. La compañía mediana superó al índice, típico de una suba sostenida por la base del mercado. 58% de los componentes con historia suficiente cotiza por encima de su EMA de 200 ruedas.</p>
+  </section>
+
+  <section class="seccion" id="distribucion">
+    <div class="num-badge"><span class="barra"></span><span class="num">07</span></div>
+    <h2 class="titulo-seccion">Distribución de retornos semanales</h2>
+    <div class="histograma">
+      <div class="barra-vert">
+        <div class="conteo">112</div>
+        <div class="columna neg" style="height:100.0px;"></div>
+        <div class="etiqueta">< −5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">53</div>
+        <div class="columna neg" style="height:47.3px;"></div>
+        <div class="etiqueta">−5% a −2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">68</div>
+        <div class="columna neg" style="height:60.7px;"></div>
+        <div class="etiqueta">−2% a 0%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">92</div>
+        <div class="columna pos" style="height:82.1px;"></div>
+        <div class="etiqueta">0% a +2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">99</div>
+        <div class="columna pos" style="height:88.4px;"></div>
+        <div class="etiqueta">+2% a +5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">73</div>
+        <div class="columna pos" style="height:65.2px;"></div>
+        <div class="etiqueta">> +5%</div>
+      </div>
+    </div>
+    <p class="parrafo" style="margin-top:14px;">Distribución sobre 497 compañías.</p>
+    <p class="parrafo lectura">La distribución muestra colas gruesas: una porción relevante de las compañías tuvo movimientos semanales superiores al 5% en cualquier dirección.</p>
+  </section>
+
+  <section class="seccion" id="movers">
+    <div class="num-badge"><span class="barra"></span><span class="num">08</span></div>
+    <h2 class="titulo-seccion">Ganadores y perdedores</h2>
+    <h3 class="subtitulo">Top 10 subas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>APP</td>
+            <td>AppLovin</td>
+            <td>Information Technology</td>
+            <td class="positivo">+71.2%</td>
+          </tr>
+          <tr>
+            <td>FISV</td>
+            <td>Fiserv</td>
+            <td>Financials</td>
+            <td class="positivo">+25.7%</td>
+          </tr>
+          <tr>
+            <td>IDXX</td>
+            <td>Idexx Laboratories</td>
+            <td>Health Care</td>
+            <td class="positivo">+22.6%</td>
+          </tr>
+          <tr>
+            <td>MOS</td>
+            <td>Mosaic Company (The)</td>
+            <td>Materials</td>
+            <td class="positivo">+21.6%</td>
+          </tr>
+          <tr>
+            <td>ABNB</td>
+            <td>Airbnb</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+15.6%</td>
+          </tr>
+          <tr>
+            <td>FSLR</td>
+            <td>First Solar</td>
+            <td>Information Technology</td>
+            <td class="positivo">+15.3%</td>
+          </tr>
+          <tr>
+            <td>MRNA</td>
+            <td>Moderna</td>
+            <td>Health Care</td>
+            <td class="positivo">+14.6%</td>
+          </tr>
+          <tr>
+            <td>TPR</td>
+            <td>Tapestry, Inc.</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+14.2%</td>
+          </tr>
+          <tr>
+            <td>CLX</td>
+            <td>Clorox</td>
+            <td>Consumer Staples</td>
+            <td class="positivo">+13.6%</td>
+          </tr>
+          <tr>
+            <td>CPAY</td>
+            <td>Corpay</td>
+            <td>Financials</td>
+            <td class="positivo">+13.5%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subtitulo">Top 10 bajas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>LITE</td>
+            <td>Lumentum</td>
+            <td>Information Technology</td>
+            <td class="negativo">-35.9%</td>
+          </tr>
+          <tr>
+            <td>STX</td>
+            <td>Seagate Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-28.5%</td>
+          </tr>
+          <tr>
+            <td>MRVL</td>
+            <td>Marvell Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-28.1%</td>
+          </tr>
+          <tr>
+            <td>WDC</td>
+            <td>Western Digital</td>
+            <td>Information Technology</td>
+            <td class="negativo">-28.0%</td>
+          </tr>
+          <tr>
+            <td>SNDK</td>
+            <td>Sandisk</td>
+            <td>Information Technology</td>
+            <td class="negativo">-27.4%</td>
+          </tr>
+          <tr>
+            <td>AXON</td>
+            <td>Axon Enterprise</td>
+            <td>Industrials</td>
+            <td class="negativo">-26.8%</td>
+          </tr>
+          <tr>
+            <td>FIS</td>
+            <td>Fidelity National Information Services</td>
+            <td>Financials</td>
+            <td class="negativo">-25.5%</td>
+          </tr>
+          <tr>
+            <td>MCHP</td>
+            <td>Microchip Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-24.6%</td>
+          </tr>
+          <tr>
+            <td>CIEN</td>
+            <td>Ciena</td>
+            <td>Information Technology</td>
+            <td class="negativo">-24.1%</td>
+          </tr>
+          <tr>
+            <td>DDOG</td>
+            <td>Datadog</td>
+            <td>Information Technology</td>
+            <td class="negativo">-23.9%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">Entre los extremos de la semana, Information Technology concentró 8 de las 10 mayores caídas.</p>
+  </section>
+
+  <section class="seccion" id="earnings">
+    <div class="num-badge"><span class="barra"></span><span class="num">09</span></div>
+    <h2 class="titulo-seccion">Temporada de resultados</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Reportes</div>
+        <div class="valor">126</div>
+      </div>
+      <div class="stat">
+        <div class="label">% de beats</div>
+        <div class="valor">82%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sorpresa media</div>
+        <div class="valor positivo">+9.8%</div>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Ticker</th><th>Compañía</th><th>EPS real</th><th>EPS est.</th><th>Sorpresa</th><th>Reacción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>AAPL</td>
+            <td>Apple Inc.</td>
+            <td>2.05</td>
+            <td>2.03</td>
+            <td class="positivo">+1.1%</td>
+            <td class="negativo">-3.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>CLX</td>
+            <td>Clorox</td>
+            <td>1.55</td>
+            <td>1.08</td>
+            <td class="positivo">+44.1%</td>
+            <td class="positivo">+6.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>EL</td>
+            <td>Estée Lauder Companies (The)</td>
+            <td>0.72</td>
+            <td>0.52</td>
+            <td class="positivo">+38.0%</td>
+            <td class="negativo">-4.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>ETR</td>
+            <td>Entergy</td>
+            <td>1.98</td>
+            <td>1.73</td>
+            <td class="positivo">+14.7%</td>
+            <td class="negativo">-0.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>FANG</td>
+            <td>Diamondback Energy</td>
+            <td>5.86</td>
+            <td>5.57</td>
+            <td class="positivo">+5.2%</td>
+            <td class="negativo">-9.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>FOXA</td>
+            <td>Fox Corporation (Class A)</td>
+            <td>2.54</td>
+            <td>2.13</td>
+            <td class="positivo">+19.0%</td>
+            <td class="negativo">-0.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>IDXX</td>
+            <td>Idexx Laboratories</td>
+            <td>3.98</td>
+            <td>3.81</td>
+            <td class="positivo">+4.4%</td>
+            <td class="positivo">+21.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>MAR</td>
+            <td>Marriott International</td>
+            <td>3.02</td>
+            <td>2.87</td>
+            <td class="positivo">+5.2%</td>
+            <td class="positivo">+4.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>O</td>
+            <td>Realty Income</td>
+            <td>1.12</td>
+            <td>0.43</td>
+            <td class="positivo">+162.2%</td>
+            <td class="positivo">+1.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>2 nov 2026</td>
+            <td>ON</td>
+            <td>ON Semiconductor</td>
+            <td>0.90</td>
+            <td>0.90</td>
+            <td class="negativo">-0.3%</td>
+            <td class="positivo">+1.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>ADM</td>
+            <td>Archer Daniels Midland</td>
+            <td>1.77</td>
+            <td>1.62</td>
+            <td class="positivo">+9.3%</td>
+            <td class="negativo">-6.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>AIG</td>
+            <td>American International Group</td>
+            <td>2.06</td>
+            <td>1.90</td>
+            <td class="positivo">+8.1%</td>
+            <td class="negativo">-0.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>AIZ</td>
+            <td>Assurant</td>
+            <td>6.15</td>
+            <td>4.79</td>
+            <td class="positivo">+28.3%</td>
+            <td class="positivo">+3.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>AMD</td>
+            <td>Advanced Micro Devices</td>
+            <td>2.09</td>
+            <td>1.97</td>
+            <td class="positivo">+6.1%</td>
+            <td class="positivo">+4.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>AME</td>
+            <td>Ametek</td>
+            <td>2.21</td>
+            <td>2.13</td>
+            <td class="positivo">+3.8%</td>
+            <td class="positivo">+2.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>AMGN</td>
+            <td>Amgen</td>
+            <td>6.45</td>
+            <td>5.91</td>
+            <td class="positivo">+9.2%</td>
+            <td class="positivo">+2.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>ANET</td>
+            <td>Arista Networks</td>
+            <td>1.20</td>
+            <td>1.10</td>
+            <td class="positivo">+9.3%</td>
+            <td class="positivo">+8.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>APO</td>
+            <td>Apollo Global Management</td>
+            <td>2.15</td>
+            <td>2.22</td>
+            <td class="negativo">-3.4%</td>
+            <td class="negativo">-4.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>APTV</td>
+            <td>Aptiv</td>
+            <td>1.42</td>
+            <td>1.35</td>
+            <td class="positivo">+4.8%</td>
+            <td class="negativo">-6.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>BALL</td>
+            <td>Ball Corporation</td>
+            <td>1.10</td>
+            <td>1.09</td>
+            <td class="positivo">+1.1%</td>
+            <td class="negativo">-7.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>BKNG</td>
+            <td>Booking Holdings</td>
+            <td>4.66</td>
+            <td>4.59</td>
+            <td class="positivo">+1.5%</td>
+            <td class="positivo">+11.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>BR</td>
+            <td>Broadridge Financial Solutions</td>
+            <td>1.56</td>
+            <td>1.41</td>
+            <td class="positivo">+10.7%</td>
+            <td class="negativo">-0.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>DD</td>
+            <td>DuPont</td>
+            <td>2.09</td>
+            <td>1.92</td>
+            <td class="positivo">+8.6%</td>
+            <td class="positivo">+8.6% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>ETN</td>
+            <td>Eaton Corporation</td>
+            <td>3.68</td>
+            <td>3.58</td>
+            <td class="positivo">+2.8%</td>
+            <td class="positivo">+7.0% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>EXPD</td>
+            <td>Expeditors International</td>
+            <td>2.65</td>
+            <td>2.27</td>
+            <td class="positivo">+16.5%</td>
+            <td class="positivo">+1.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>FISV</td>
+            <td>Fiserv</td>
+            <td>1.75</td>
+            <td>1.75</td>
+            <td class="negativo">-0.1%</td>
+            <td class="positivo">+12.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>HSIC</td>
+            <td>Henry Schein</td>
+            <td>1.56</td>
+            <td>1.38</td>
+            <td class="positivo">+12.6%</td>
+            <td class="negativo">-4.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>IFF</td>
+            <td>International Flavors & Fragrances</td>
+            <td>0.83</td>
+            <td>0.80</td>
+            <td class="positivo">+3.2%</td>
+            <td class="negativo">-7.4% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>IT</td>
+            <td>Gartner</td>
+            <td>3.59</td>
+            <td>2.93</td>
+            <td class="positivo">+22.6%</td>
+            <td class="negativo">-13.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>JKHY</td>
+            <td>Jack Henry & Associates</td>
+            <td>2.28</td>
+            <td>2.10</td>
+            <td class="positivo">+8.6%</td>
+            <td class="positivo">+9.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>KDP</td>
+            <td>Keurig Dr Pepper</td>
+            <td>0.66</td>
+            <td>0.62</td>
+            <td class="positivo">+5.6%</td>
+            <td class="negativo">-5.6% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>LDOS</td>
+            <td>Leidos</td>
+            <td>3.62</td>
+            <td>3.09</td>
+            <td class="positivo">+17.1%</td>
+            <td class="negativo">-6.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>MOS</td>
+            <td>Mosaic Company (The)</td>
+            <td>-0.19</td>
+            <td>0.02</td>
+            <td class="negativo">-878.7%</td>
+            <td class="positivo">+13.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>MPC</td>
+            <td>Marathon Petroleum</td>
+            <td>26.93</td>
+            <td>24.72</td>
+            <td class="positivo">+9.0%</td>
+            <td class="negativo">-0.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>PFE</td>
+            <td>Pfizer</td>
+            <td>0.87</td>
+            <td>0.73</td>
+            <td class="positivo">+18.8%</td>
+            <td class="negativo">-2.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>PNW</td>
+            <td>Pinnacle West Capital</td>
+            <td>3.49</td>
+            <td>3.34</td>
+            <td class="positivo">+4.5%</td>
+            <td class="positivo">+1.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>PRU</td>
+            <td>Prudential Financial</td>
+            <td>3.77</td>
+            <td>3.40</td>
+            <td class="positivo">+10.9%</td>
+            <td class="positivo">+7.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>RVTY</td>
+            <td>Revvity</td>
+            <td>1.38</td>
+            <td>1.33</td>
+            <td class="positivo">+4.1%</td>
+            <td class="positivo">+7.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>SMCI</td>
+            <td>Supermicro</td>
+            <td>1.81</td>
+            <td>1.26</td>
+            <td class="positivo">+43.8%</td>
+            <td class="negativo">-2.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>SWKS</td>
+            <td>Skyworks Solutions</td>
+            <td>1.28</td>
+            <td>1.30</td>
+            <td class="negativo">-1.4%</td>
+            <td class="negativo">-2.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>SYY</td>
+            <td>Sysco</td>
+            <td>1.19</td>
+            <td>1.20</td>
+            <td class="negativo">-1.2%</td>
+            <td class="negativo">-9.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>WAT</td>
+            <td>Waters Corporation</td>
+            <td>4.10</td>
+            <td>4.04</td>
+            <td class="positivo">+1.6%</td>
+            <td class="positivo">+2.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>XYZ</td>
+            <td>Block, Inc.</td>
+            <td>1.13</td>
+            <td>1.04</td>
+            <td class="positivo">+9.1%</td>
+            <td class="positivo">+13.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>YUM</td>
+            <td>Yum! Brands</td>
+            <td>1.56</td>
+            <td>1.50</td>
+            <td class="positivo">+3.8%</td>
+            <td class="negativo">-0.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>3 nov 2026</td>
+            <td>ZBRA</td>
+            <td>Zebra Technologies</td>
+            <td>4.95</td>
+            <td>5.00</td>
+            <td class="negativo">-1.0%</td>
+            <td class="negativo">-8.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>AFL</td>
+            <td>Aflac</td>
+            <td>2.43</td>
+            <td>1.81</td>
+            <td class="positivo">+34.3%</td>
+            <td class="positivo">+1.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>ALB</td>
+            <td>Albemarle Corporation</td>
+            <td>2.58</td>
+            <td>2.56</td>
+            <td class="positivo">+0.6%</td>
+            <td class="positivo">+9.1% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>ALL</td>
+            <td>Allstate</td>
+            <td>9.76</td>
+            <td>6.97</td>
+            <td class="positivo">+40.1%</td>
+            <td class="positivo">+2.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>AMCR</td>
+            <td>Amcor</td>
+            <td>0.95</td>
+            <td>1.03</td>
+            <td class="negativo">-7.5%</td>
+            <td class="negativo">-2.4% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>APA</td>
+            <td>APA Corporation</td>
+            <td>1.94</td>
+            <td>1.57</td>
+            <td class="positivo">+23.8%</td>
+            <td class="negativo">-9.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>APP</td>
+            <td>AppLovin</td>
+            <td>4.30</td>
+            <td>4.08</td>
+            <td class="positivo">+5.4%</td>
+            <td class="positivo">+45.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>ATO</td>
+            <td>Atmos Energy</td>
+            <td>1.17</td>
+            <td>1.15</td>
+            <td class="positivo">+1.8%</td>
+            <td class="positivo">+0.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>CDW</td>
+            <td>CDW Corporation</td>
+            <td>3.26</td>
+            <td>3.01</td>
+            <td class="positivo">+8.3%</td>
+            <td class="positivo">+12.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>CF</td>
+            <td>CF Industries</td>
+            <td>2.87</td>
+            <td>3.02</td>
+            <td class="negativo">-5.0%</td>
+            <td class="positivo">+1.5% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>COHR</td>
+            <td>Coherent Corp.</td>
+            <td>2.09</td>
+            <td>2.01</td>
+            <td class="positivo">+4.1%</td>
+            <td class="negativo">-18.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>COR</td>
+            <td>Cencora</td>
+            <td>4.66</td>
+            <td>4.63</td>
+            <td class="positivo">+0.7%</td>
+            <td class="positivo">+4.0% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>CPAY</td>
+            <td>Corpay</td>
+            <td>7.54</td>
+            <td>7.35</td>
+            <td class="positivo">+2.6%</td>
+            <td class="positivo">+9.9% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>CRL</td>
+            <td>Charles River Laboratories</td>
+            <td>3.09</td>
+            <td>3.00</td>
+            <td class="positivo">+2.9%</td>
+            <td class="negativo">-7.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>CVS</td>
+            <td>CVS Health</td>
+            <td>2.09</td>
+            <td>1.67</td>
+            <td class="positivo">+25.4%</td>
+            <td class="negativo">-12.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>DDOG</td>
+            <td>Datadog</td>
+            <td>0.81</td>
+            <td>0.67</td>
+            <td class="positivo">+21.6%</td>
+            <td class="negativo">-14.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>EMR</td>
+            <td>Emerson Electric</td>
+            <td>1.86</td>
+            <td>1.87</td>
+            <td class="negativo">-0.7%</td>
+            <td class="positivo">+2.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>ES</td>
+            <td>Eversource Energy</td>
+            <td>0.92</td>
+            <td>0.93</td>
+            <td class="negativo">-1.1%</td>
+            <td class="positivo">+4.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>EW</td>
+            <td>Edwards Lifesciences</td>
+            <td>0.80</td>
+            <td>0.76</td>
+            <td class="positivo">+5.4%</td>
+            <td class="positivo">+5.9% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>EXPE</td>
+            <td>Expedia Group</td>
+            <td>9.39</td>
+            <td>9.07</td>
+            <td class="positivo">+3.5%</td>
+            <td class="negativo">-4.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>FICO</td>
+            <td>Fair Isaac</td>
+            <td>11.10</td>
+            <td>10.98</td>
+            <td class="positivo">+1.1%</td>
+            <td class="negativo">-2.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>GWW</td>
+            <td>W. W. Grainger</td>
+            <td>12.54</td>
+            <td>11.78</td>
+            <td class="positivo">+6.4%</td>
+            <td class="positivo">+6.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>HST</td>
+            <td>Host Hotels & Resorts</td>
+            <td>0.39</td>
+            <td>0.10</td>
+            <td class="positivo">+286.1%</td>
+            <td class="negativo">-4.5% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>KHC</td>
+            <td>Kraft Heinz</td>
+            <td>0.53</td>
+            <td>0.43</td>
+            <td class="positivo">+23.8%</td>
+            <td class="positivo">+3.8% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>MCD</td>
+            <td>McDonald's</td>
+            <td>3.57</td>
+            <td>3.42</td>
+            <td class="positivo">+4.4%</td>
+            <td class="positivo">+6.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>MCK</td>
+            <td>McKesson Corporation</td>
+            <td>11.68</td>
+            <td>10.81</td>
+            <td class="positivo">+8.0%</td>
+            <td class="positivo">+7.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>MET</td>
+            <td>MetLife</td>
+            <td>2.85</td>
+            <td>2.80</td>
+            <td class="positivo">+1.7%</td>
+            <td class="negativo">-0.9% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>MLM</td>
+            <td>Martin Marietta Materials</td>
+            <td>5.47</td>
+            <td>6.10</td>
+            <td class="negativo">-10.4%</td>
+            <td class="positivo">+2.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>MSI</td>
+            <td>Motorola Solutions</td>
+            <td>4.69</td>
+            <td>4.46</td>
+            <td class="positivo">+5.1%</td>
+            <td class="positivo">+5.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>NWSA</td>
+            <td>News Corp (Class A)</td>
+            <td>0.28</td>
+            <td>0.26</td>
+            <td class="positivo">+7.0%</td>
+            <td class="negativo">-10.1% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>PODD</td>
+            <td>Insulet Corporation</td>
+            <td>1.99</td>
+            <td>1.62</td>
+            <td class="positivo">+22.9%</td>
+            <td class="positivo">+6.6% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>PTC</td>
+            <td>PTC Inc.</td>
+            <td>2.03</td>
+            <td>1.98</td>
+            <td class="positivo">+2.4%</td>
+            <td class="positivo">+0.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>Q</td>
+            <td>Qnity Electronics</td>
+            <td>1.46</td>
+            <td>1.23</td>
+            <td class="positivo">+19.0%</td>
+            <td class="negativo">-0.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>QCOM</td>
+            <td>Qualcomm</td>
+            <td>2.17</td>
+            <td>2.20</td>
+            <td class="negativo">-1.5%</td>
+            <td class="negativo">-4.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>SWK</td>
+            <td>Stanley Black & Decker</td>
+            <td>2.31</td>
+            <td>1.57</td>
+            <td class="positivo">+46.9%</td>
+            <td class="positivo">+13.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>TKO</td>
+            <td>TKO Group Holdings</td>
+            <td>1.33</td>
+            <td>1.21</td>
+            <td class="positivo">+9.5%</td>
+            <td class="positivo">+1.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>TPL</td>
+            <td>Texas Pacific Land Corporation</td>
+            <td>2.42</td>
+            <td>2.35</td>
+            <td class="positivo">+3.1%</td>
+            <td class="negativo">-18.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>TRMB</td>
+            <td>Trimble Inc.</td>
+            <td>0.86</td>
+            <td>0.88</td>
+            <td class="negativo">-2.2%</td>
+            <td class="negativo">-17.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>UBER</td>
+            <td>Uber</td>
+            <td>0.25</td>
+            <td>0.98</td>
+            <td class="negativo">-74.6%</td>
+            <td class="positivo">+4.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>4 nov 2026</td>
+            <td>ZBH</td>
+            <td>Zimmer Biomet</td>
+            <td>1.90</td>
+            <td>1.90</td>
+            <td class="negativo">-0.1%</td>
+            <td class="positivo">+13.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>ABNB</td>
+            <td>Airbnb</td>
+            <td>3.16</td>
+            <td>2.91</td>
+            <td class="positivo">+8.6%</td>
+            <td class="positivo">+7.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>AEE</td>
+            <td>Ameren</td>
+            <td>2.42</td>
+            <td>2.32</td>
+            <td class="positivo">+4.4%</td>
+            <td class="negativo">-0.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>AKAM</td>
+            <td>Akamai Technologies</td>
+            <td>1.77</td>
+            <td>1.71</td>
+            <td class="positivo">+3.8%</td>
+            <td class="negativo">-3.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>BDX</td>
+            <td>Becton Dickinson</td>
+            <td>4.15</td>
+            <td>4.11</td>
+            <td class="positivo">+1.0%</td>
+            <td class="positivo">+2.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>CAH</td>
+            <td>Cardinal Health</td>
+            <td>3.26</td>
+            <td>2.97</td>
+            <td class="positivo">+9.8%</td>
+            <td class="positivo">+2.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>CI</td>
+            <td>Cigna</td>
+            <td>7.98</td>
+            <td>7.73</td>
+            <td class="positivo">+3.3%</td>
+            <td class="negativo">-1.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>CMI</td>
+            <td>Cummins</td>
+            <td>7.71</td>
+            <td>8.28</td>
+            <td class="negativo">-6.9%</td>
+            <td class="negativo">-4.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>COP</td>
+            <td>ConocoPhillips</td>
+            <td>3.27</td>
+            <td>2.99</td>
+            <td class="positivo">+9.3%</td>
+            <td class="negativo">-1.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>CPT</td>
+            <td>Camden Property Trust</td>
+            <td>1.71</td>
+            <td>0.53</td>
+            <td class="positivo">+221.5%</td>
+            <td class="negativo">-4.8% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>DTE</td>
+            <td>DTE Energy</td>
+            <td>2.30</td>
+            <td>2.17</td>
+            <td class="positivo">+6.0%</td>
+            <td class="negativo">-1.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>DUK</td>
+            <td>Duke Energy</td>
+            <td>1.99</td>
+            <td>1.88</td>
+            <td class="positivo">+5.6%</td>
+            <td class="positivo">+0.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>DVN</td>
+            <td>Devon Energy</td>
+            <td>1.42</td>
+            <td>1.34</td>
+            <td class="positivo">+5.8%</td>
+            <td class="negativo">-4.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>ED</td>
+            <td>Consolidated Edison</td>
+            <td>2.06</td>
+            <td>2.09</td>
+            <td class="negativo">-1.4%</td>
+            <td class="negativo">-1.4% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>EOG</td>
+            <td>EOG Resources</td>
+            <td>4.87</td>
+            <td>4.50</td>
+            <td class="positivo">+8.2%</td>
+            <td class="positivo">+0.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>EVRG</td>
+            <td>Evergy</td>
+            <td>2.58</td>
+            <td>2.35</td>
+            <td class="positivo">+9.7%</td>
+            <td class="positivo">+1.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>GPN</td>
+            <td>Global Payments</td>
+            <td>3.58</td>
+            <td>3.61</td>
+            <td class="negativo">-0.9%</td>
+            <td class="negativo">-1.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>IRM</td>
+            <td>Iron Mountain</td>
+            <td>1.53</td>
+            <td>0.62</td>
+            <td class="positivo">+147.7%</td>
+            <td class="negativo">-11.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>KMB</td>
+            <td>Kimberly-Clark</td>
+            <td>1.70</td>
+            <td>1.66</td>
+            <td class="positivo">+2.6%</td>
+            <td class="positivo">+1.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>LYV</td>
+            <td>Live Nation Entertainment</td>
+            <td>1.69</td>
+            <td>1.56</td>
+            <td class="positivo">+8.5%</td>
+            <td class="negativo">-4.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>MCHP</td>
+            <td>Microchip Technology</td>
+            <td>0.97</td>
+            <td>0.95</td>
+            <td class="positivo">+2.3%</td>
+            <td class="negativo">-22.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>MNST</td>
+            <td>Monster Beverage</td>
+            <td>0.30</td>
+            <td>0.30</td>
+            <td class="negativo">-1.6%</td>
+            <td class="negativo">-6.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>MTD</td>
+            <td>Mettler Toledo</td>
+            <td>12.57</td>
+            <td>12.22</td>
+            <td class="positivo">+2.9%</td>
+            <td class="negativo">-0.1% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>PH</td>
+            <td>Parker Hannifin</td>
+            <td>8.90</td>
+            <td>8.43</td>
+            <td class="positivo">+5.5%</td>
+            <td class="negativo">-2.0% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>REG</td>
+            <td>Regency Centers</td>
+            <td>1.23</td>
+            <td>0.61</td>
+            <td class="positivo">+101.3%</td>
+            <td class="negativo">-2.6% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>RL</td>
+            <td>Ralph Lauren Corporation</td>
+            <td>4.64</td>
+            <td>4.39</td>
+            <td class="positivo">+5.7%</td>
+            <td class="negativo">-7.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>ROK</td>
+            <td>Rockwell Automation</td>
+            <td>3.88</td>
+            <td>3.73</td>
+            <td class="positivo">+4.0%</td>
+            <td class="negativo">-14.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>SO</td>
+            <td>Southern Company</td>
+            <td>1.94</td>
+            <td>1.76</td>
+            <td class="positivo">+10.1%</td>
+            <td class="positivo">+0.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>SOLV</td>
+            <td>Solventum</td>
+            <td>1.45</td>
+            <td>1.38</td>
+            <td class="positivo">+5.0%</td>
+            <td class="positivo">+1.2% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>SPG</td>
+            <td>Simon Property Group</td>
+            <td>3.37</td>
+            <td>1.72</td>
+            <td class="positivo">+96.0%</td>
+            <td class="negativo">+0.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>SRE</td>
+            <td>Sempra</td>
+            <td>1.40</td>
+            <td>1.24</td>
+            <td class="positivo">+13.3%</td>
+            <td class="negativo">-3.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>TAP</td>
+            <td>Molson Coors Beverage Company</td>
+            <td>1.46</td>
+            <td>1.47</td>
+            <td class="negativo">-0.4%</td>
+            <td class="negativo">-2.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>TPR</td>
+            <td>Tapestry, Inc.</td>
+            <td>1.82</td>
+            <td>1.58</td>
+            <td class="positivo">+15.0%</td>
+            <td class="positivo">+7.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>TRGP</td>
+            <td>Targa Resources</td>
+            <td>3.04</td>
+            <td>2.77</td>
+            <td class="positivo">+9.8%</td>
+            <td class="negativo">-4.6% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>VRSK</td>
+            <td>Verisk Analytics</td>
+            <td>1.96</td>
+            <td>1.96</td>
+            <td class="negativo">-0.2%</td>
+            <td class="positivo">+6.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>VTRS</td>
+            <td>Viatris</td>
+            <td>0.71</td>
+            <td>0.65</td>
+            <td class="positivo">+9.3%</td>
+            <td class="negativo">-1.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>WYNN</td>
+            <td>Wynn Resorts</td>
+            <td>0.33</td>
+            <td>0.72</td>
+            <td class="negativo">-53.9%</td>
+            <td class="positivo">+0.9% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>5 nov 2026</td>
+            <td>ZTS</td>
+            <td>Zoetis</td>
+            <td>1.75</td>
+            <td>1.53</td>
+            <td class="positivo">+14.6%</td>
+            <td class="negativo">-7.9% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>6 nov 2026</td>
+            <td>BEN</td>
+            <td>Franklin Resources</td>
+            <td>0.94</td>
+            <td>0.78</td>
+            <td class="positivo">+20.6%</td>
+            <td class="positivo">+4.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>6 nov 2026</td>
+            <td>CHTR</td>
+            <td>Charter Communications</td>
+            <td>21.70</td>
+            <td>9.24</td>
+            <td class="positivo">+134.9%</td>
+            <td class="negativo">-6.2% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>6 nov 2026</td>
+            <td>HUM</td>
+            <td>Humana</td>
+            <td>-0.70</td>
+            <td>-1.01</td>
+            <td class="positivo">+30.9%</td>
+            <td class="positivo">+5.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>6 nov 2026</td>
+            <td>MRNA</td>
+            <td>Moderna</td>
+            <td>0.38</td>
+            <td>-1.28</td>
+            <td class="positivo">+129.8%</td>
+            <td class="positivo">+5.3% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>6 nov 2026</td>
+            <td>PPL</td>
+            <td>PPL Corporation</td>
+            <td>0.54</td>
+            <td>0.54</td>
+            <td class="positivo">+0.6%</td>
+            <td class="negativo">-0.6% (mismo día)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">Reportaron 126 compañías del S&P 500 en la semana, con 82% superando el estimado de EPS y una sorpresa media de +9.8%. La proporción de beats fue alta, coherente con una temporada de resultados sólida.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>Semana reportada: 2 nov 2026 — 6 nov 2026</div>
+  <div class="disclaimer">Informe generado automáticamente con datos públicos. No constituye recomendación de inversión.</div>
+</footer>
+</body>
+</html>
