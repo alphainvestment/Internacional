@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El S&P 500 retrocedió (-8.6%) en una semana de aversión al riesgo generalizada — INFORME SEMANAL DE MERCADO — INTERNACIONAL</title>
+<style>
+:root {
+  --navy: #16233b;
+  --navy-light: #7fa6e0;
+  --verde: #2ecf82;
+  --rojo: #ff6b6f;
+  --gris-borde: rgba(255,255,255,0.10);
+  --gris-texto: #96a2b8;
+  --gris-fondo: #16202e;
+  --bg: #0c1420;
+  --bg-cabecera: #0a1220;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
+  color: #e6ebf3;
+  background: var(--bg);
+  line-height: 1.5;
+}
+a { color: var(--navy-light); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header.cabecera {
+  background: var(--bg-cabecera);
+  color: #fff;
+  padding: 28px 0 24px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aebcd6;
+  margin: 0 0 10px;
+}
+.rango-fechas {
+  font-size: 13px;
+  color: #c7d2e6;
+  margin: 4px 0 18px;
+}
+h1.titulo-informe {
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.25;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+p.bajada {
+  font-size: 15px;
+  color: #dbe3f0;
+  margin: 0;
+  max-width: 720px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 130px;
+  flex: 1 1 130px;
+}
+.card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aebcd6;
+  margin-bottom: 4px;
+}
+.card .valor {
+  font-size: 18px;
+  font-weight: 600;
+}
+main { padding: 30px 0 10px; }
+section.seccion { margin-bottom: 40px; }
+.num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.num-badge .barra {
+  width: 26px;
+  height: 4px;
+  background: var(--navy-light);
+  border-radius: 2px;
+}
+.num-badge .num {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gris-texto);
+  font-weight: 600;
+}
+h2.titulo-seccion {
+  font-size: 19px;
+  color: var(--navy-light);
+  margin: 0 0 14px;
+}
+p.parrafo { margin: 0 0 12px; font-size: 14.5px; color: #c6cede; }
+p.parrafo.lectura { color: #96a2b8; font-style: italic; }
+.positivo { color: var(--verde); font-weight: 600; }
+.negativo { color: var(--rojo); font-weight: 600; }
+.tabla-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+th {
+  text-align: left;
+  color: var(--navy-light);
+  border-bottom: 2px solid var(--navy-light);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--gris-borde);
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--gris-fondo); }
+.barra-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.barra-fila .etiqueta {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.barra-fila .pista {
+  flex: 1;
+  background: var(--gris-fondo);
+  border-radius: 3px;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.barra-fila .relleno {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.barra-fila .relleno.pos { background: var(--verde); }
+.barra-fila .relleno.neg { background: var(--rojo); }
+.barra-fila .valor {
+  width: 64px;
+  text-align: right;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+ul.claves { margin: 0; padding-left: 20px; }
+ul.claves li { margin-bottom: 7px; font-size: 14.5px; }
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 18px;
+}
+.stat {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 150px;
+  flex: 1 1 150px;
+}
+.stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gris-texto);
+  margin-bottom: 4px;
+}
+.stat .valor { font-size: 17px; font-weight: 600; color: #e6ebf3; }
+.histograma {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+.histograma .barra-vert {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.histograma .conteo { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.histograma .columna { width: 100%; max-width: 46px; border-radius: 3px 3px 0 0; min-height: 3px; }
+.histograma .columna.pos { background: var(--verde); }
+.histograma .columna.neg { background: var(--rojo); }
+.histograma .etiqueta {
+  font-size: 10.5px;
+  color: var(--gris-texto);
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.25;
+}
+h3.subtitulo { font-size: 14.5px; color: var(--navy-light); margin: 18px 0 8px; }
+.balance-bloque {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 18px;
+}
+.balance-pista {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--rojo), var(--gris-fondo) 50%, var(--verde));
+  position: relative;
+}
+.balance-marca {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 18px;
+  background: #e6ebf3;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.balance-valor { font-size: 16px; font-weight: 700; color: var(--navy-light); width: 60px; text-align: right; }
+.seccion-no-disp {
+  color: var(--gris-texto);
+  font-style: italic;
+  font-size: 14px;
+  padding: 14px;
+  background: var(--gris-fondo);
+  border-radius: 6px;
+}
+footer {
+  border-top: 1px solid var(--gris-borde);
+  padding: 20px 0 40px;
+  color: var(--gris-texto);
+  font-size: 12.5px;
+}
+footer .disclaimer { margin-top: 6px; }
+.lista-informes { list-style: none; margin: 0; padding: 0; }
+.lista-informes li {
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 16px 0;
+}
+.lista-informes .fecha-item {
+  font-size: 12px;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.lista-informes a.titulo-item {
+  font-size: 16px;
+  color: var(--navy-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lista-informes a.titulo-item:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .cards { gap: 8px; }
+  .card { min-width: 120px; }
+  .barra-fila .etiqueta { width: 92px; font-size: 12px; }
+  h1.titulo-informe { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap">
+    <p class="kicker">INFORME SEMANAL DE MERCADO — INTERNACIONAL</p>
+    <p class="rango-fechas">Semana del 16 nov 2026 al 20 nov 2026 &middot; Publicado 21 nov 2026</p>
+    <h1 class="titulo-informe">El S&P 500 retrocedió (-8.6%) en una semana de aversión al riesgo generalizada</h1>
+    <p class="bajada">0 de 11 sectores en positivo, liderados por Consumo básico (-2.0%); el dólar se fortaleció 0.7% frente a las majors.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">S&amp;P 500</div>
+        <div class="valor negativo">-8.6%</div>
+      </div>
+      <div class="card">
+        <div class="label">VIX</div>
+        <div class="valor">35.9 <span class="positivo" style="font-size:13px;">(+86.0%)</span></div>
+      </div>
+      <div class="card">
+        <div class="label">Dólar (índice sintético)</div>
+        <div class="valor positivo">+0.7%</div>
+      </div>
+      <div class="card">
+        <div class="label">Mejor sector</div>
+        <div class="valor positivo">Consumo básico -2.0%</div>
+      </div>
+      <div class="card">
+        <div class="label">Peor sector</div>
+        <div class="valor negativo">Tecnología -12.5%</div>
+      </div>
+      <div class="card">
+        <div class="label">Spread cíclicos−defensivos</div>
+        <div class="valor negativo">-4.2%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="seccion" id="resumen">
+    <div class="num-badge"><span class="barra"></span><span class="num">01</span></div>
+    <h2 class="titulo-seccion">Resumen ejecutivo</h2>
+
+    <div class="balance-bloque">
+      <span style="font-size:13px;color:var(--gris-texto);white-space:nowrap;">Balance de la semana</span>
+      <div class="balance-pista">
+        <div class="balance-marca" style="left:1.5%;"></div>
+      </div>
+      <span class="balance-valor">-97</span>
+    </div>
+
+    <p class="parrafo">El S&P 500 retrocedió -8.6% en la semana, cerrando en 6,910 puntos, en un contexto de aversión al riesgo generalizada. El VIX subió 86.0% y cerró en 35.9. La amplitud de mercado fue de 6% de componentes del S&P 500 en positivo.</p>
+    <p class="parrafo">La rotación sectorial mostró 0 de 11 sectores en terreno positivo. Consumo básico lideró con -2.0%, mientras que Tecnología fue el más rezagado con -12.5%. El spread cíclicos-defensivos quedó a favor de los defensivos (-4.2%).</p>
+    <p class="parrafo">En el frente macro, el dólar se fortaleció 0.7% frente a una canasta de majors; la tasa a 10 años bajó 11 pb hasta 5.04%; el oro -9.5%; el WTI -5.2%; Bitcoin -13.8%.</p>
+    <p class="parrafo">Los Treasuries largos superaron al crédito high-yield, coherente con una postura más defensiva en renta fija.</p>
+
+    <h2 class="titulo-seccion" style="margin-top:22px;font-size:16px;">Claves de la semana</h2>
+    <ul class="claves">
+      <li>S&P 500: -8.6% en la semana, cierre en 6,910.</li>
+      <li>VIX en 35.9 (+86.0% en la semana).</li>
+      <li>Sector líder: Consumo básico (-2.0%); más rezagado: Tecnología (-12.5%).</li>
+      <li>Dólar (índice sintético): se fortaleció 0.7%.</li>
+      <li>Tasa 10Y: 5.04% (-11 pb en la semana).</li>
+      <li>Volumen SPY vs. promedio 4 semanas: +79.1%.</li>
+      <li>Amplitud: 28 suben, 459 bajan, 10 planos de 497 componentes (6% en positivo).</li>
+    </ul>
+  </section>
+
+  <section class="seccion" id="panorama">
+    <div class="num-badge"><span class="barra"></span><span class="num">02</span></div>
+    <h2 class="titulo-seccion">Panorama de mercado</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Índice</th><th>Cierre</th><th>Var. semanal</th><th>Mejor sesión</th><th>Peor sesión</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S&P 500</td>
+            <td>6,910.39</td>
+            <td class="negativo">-8.6%</td>
+            <td class="positivo">18 nov 2026 (-0.2%)</td>
+            <td class="negativo">20 nov 2026 (-3.7%)</td>
+          </tr>
+          <tr>
+            <td>Nasdaq Composite</td>
+            <td>22,617.73</td>
+            <td class="negativo">-10.0%</td>
+            <td class="positivo">18 nov 2026 (+0.4%)</td>
+            <td class="negativo">20 nov 2026 (-5.3%)</td>
+          </tr>
+          <tr>
+            <td>Dow Jones Industrial Average</td>
+            <td>48,147.33</td>
+            <td class="negativo">-8.0%</td>
+            <td class="positivo">18 nov 2026 (-1.1%)</td>
+            <td class="negativo">19 nov 2026 (-2.2%)</td>
+          </tr>
+          <tr>
+            <td>Russell 2000</td>
+            <td>2,581.79</td>
+            <td class="negativo">-7.5%</td>
+            <td class="positivo">18 nov 2026 (+0.5%)</td>
+            <td class="negativo">20 nov 2026 (-2.8%)</td>
+          </tr>
+          <tr>
+            <td>VIX</td>
+            <td>35.89</td>
+            <td class="positivo">+86.0%</td>
+            <td class="positivo">20 nov 2026 (+26.2%)</td>
+            <td class="negativo">18 nov 2026 (-3.5%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">Russell 2000 lideró entre los principales índices (-7.5%); Nasdaq Composite quedó más rezagado (-10.0%). El salto del VIX refleja una demanda de cobertura más alta de lo habitual.</p>
+  </section>
+
+  <section class="seccion" id="sectores">
+    <div class="num-badge"><span class="barra"></span><span class="num">03</span></div>
+    <h2 class="titulo-seccion">Rotación sectorial</h2>
+    <p class="parrafo">0 de 11 sectores en positivo. Promedio cíclicos: -8.1% &middot; Promedio defensivos: -3.9%.</p>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo básico (XLP)</span>
+      <span class="pista"><span class="relleno neg" style="width:16.4%;"></span></span>
+      <span class="valor negativo">-2.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Utilities (XLU)</span>
+      <span class="pista"><span class="relleno neg" style="width:24.5%;"></span></span>
+      <span class="valor negativo">-3.1%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Real Estate (XLRE)</span>
+      <span class="pista"><span class="relleno neg" style="width:34.5%;"></span></span>
+      <span class="valor negativo">-4.3%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Salud (XLV)</span>
+      <span class="pista"><span class="relleno neg" style="width:49.2%;"></span></span>
+      <span class="valor negativo">-6.1%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Consumo discrecional (XLY)</span>
+      <span class="pista"><span class="relleno neg" style="width:50.2%;"></span></span>
+      <span class="valor negativo">-6.3%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Energía (XLE)</span>
+      <span class="pista"><span class="relleno neg" style="width:54.8%;"></span></span>
+      <span class="valor negativo">-6.9%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Financiero (XLF)</span>
+      <span class="pista"><span class="relleno neg" style="width:56.1%;"></span></span>
+      <span class="valor negativo">-7.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Industrial (XLI)</span>
+      <span class="pista"><span class="relleno neg" style="width:58.9%;"></span></span>
+      <span class="valor negativo">-7.4%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Materiales (XLB)</span>
+      <span class="pista"><span class="relleno neg" style="width:59.6%;"></span></span>
+      <span class="valor negativo">-7.4%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Comunicaciones (XLC)</span>
+      <span class="pista"><span class="relleno neg" style="width:63.8%;"></span></span>
+      <span class="valor negativo">-8.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Tecnología (XLK)</span>
+      <span class="pista"><span class="relleno neg" style="width:100.0%;"></span></span>
+      <span class="valor negativo">-12.5%</span>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">Los sectores defensivos superaron a los cíclicos, un sesgo más cauteloso dentro de la rotación semanal.</p>
+  </section>
+
+  <section class="seccion" id="macro">
+    <div class="num-badge"><span class="barra"></span><span class="num">04</span></div>
+    <h2 class="titulo-seccion">Divisas y macro global</h2>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Divisa</th><th>Cierre (par)</th><th>Var. semanal (divisa)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Euro</td>
+            <td>1.0970</td>
+            <td class="negativo">-0.7%</td>
+          </tr>
+          <tr>
+            <td>Libra esterlina</td>
+            <td>1.3086</td>
+            <td class="negativo">-1.1%</td>
+          </tr>
+          <tr>
+            <td>Yen japonés</td>
+            <td>159.7070</td>
+            <td class="positivo">+0.1%</td>
+          </tr>
+          <tr>
+            <td>Franco suizo</td>
+            <td>0.8441</td>
+            <td class="negativo">-1.0%</td>
+          </tr>
+          <tr>
+            <td>Dólar australiano</td>
+            <td>0.6656</td>
+            <td class="negativo">-2.2%</td>
+          </tr>
+          <tr>
+            <td>Dólar canadiense</td>
+            <td>1.4344</td>
+            <td class="negativo">-0.6%</td>
+          </tr>
+          <tr>
+            <td>Yuan chino</td>
+            <td>6.6665</td>
+            <td class="positivo">+0.1%</td>
+          </tr>
+          <tr>
+            <td>Peso mexicano</td>
+            <td>19.0901</td>
+            <td class="negativo">-2.7%</td>
+          </tr>
+          <tr>
+            <td>Real brasileño</td>
+            <td>5.9335</td>
+            <td class="negativo">-5.2%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Indicador</th><th>Cierre</th><th>Var. semanal</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oro</td>
+            <td>3,515.40</td>
+            <td class="negativo">-9.5%</td>
+          </tr>
+          <tr>
+            <td>WTI</td>
+            <td>83.98</td>
+            <td class="negativo">-5.2%</td>
+          </tr>
+          <tr>
+            <td>Bitcoin</td>
+            <td>58,798.98</td>
+            <td class="negativo">-13.8%</td>
+          </tr>
+          <tr>
+            <td>Tasa 10Y (FRED)</td>
+            <td>5.04%</td>
+            <td class="negativo">-11 pb</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">El dólar se fortaleció frente a la mayoría de las majors; la tasa a 10 años bajó 11 pb, un alivio para los activos de mayor duración; tanto el oro como Bitcoin retrocedieron en la semana.</p>
+  </section>
+
+  <section class="seccion" id="flujos">
+    <div class="num-badge"><span class="barra"></span><span class="num">05</span></div>
+    <h2 class="titulo-seccion">Flujos: institucionales vs. minoristas (proxies)</h2>
+    <div class="barra-fila">
+      <span class="etiqueta">Equiponderado vs. cap-ponderado</span>
+      <span class="pista"><span class="relleno pos" style="width:23.3%;"></span></span>
+      <span class="valor positivo">+2.4%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Small caps vs. large caps</span>
+      <span class="pista"><span class="relleno pos" style="width:10.1%;"></span></span>
+      <span class="valor positivo">+1.0%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Alta beta vs. baja volatilidad</span>
+      <span class="pista"><span class="relleno neg" style="width:100.0%;"></span></span>
+      <span class="valor negativo">-10.1%</span>
+    </div>
+    <div class="barra-fila">
+      <span class="etiqueta">Crédito high-yield vs. Treasuries largos</span>
+      <span class="pista"><span class="relleno neg" style="width:33.7%;"></span></span>
+      <span class="valor negativo">-3.4%</span>
+    </div>
+    <p class="parrafo" style="margin-top:10px;">Volumen de SPY vs. promedio de las 4 semanas previas: <strong class="positivo">+79.1%</strong>.</p>
+    <p class="parrafo">Los Treasuries largos superaron al crédito high-yield, coherente con una postura más defensiva en renta fija.</p>
+  </section>
+
+  <section class="seccion" id="amplitud">
+    <div class="num-badge"><span class="barra"></span><span class="num">06</span></div>
+    <h2 class="titulo-seccion">Amplitud del mercado</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Suben / Bajan / Planos</div>
+        <div class="valor">28 / 459 / 10</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud</div>
+        <div class="valor">6%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno promedio (cías.)</div>
+        <div class="valor negativo">-6.5%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Retorno mediana (cías.)</div>
+        <div class="valor negativo">-5.8%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 50</div>
+        <div class="valor">35%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sobre EMA 200</div>
+        <div class="valor">44%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Amplitud media diaria</div>
+        <div class="valor">25%</div>
+      </div>
+    </div>
+    <p class="parrafo">N efectivo: 497 componentes del S&amp;P 500 (retorno del índice: -8.6%).</p>
+    <p class="parrafo lectura">La amplitud fue débil: solo 6% de los componentes del S&P 500 terminaron en positivo. La compañía mediana superó al índice, típico de una suba sostenida por la base del mercado. 44% de los componentes con historia suficiente cotiza por encima de su EMA de 200 ruedas.</p>
+  </section>
+
+  <section class="seccion" id="distribucion">
+    <div class="num-badge"><span class="barra"></span><span class="num">07</span></div>
+    <h2 class="titulo-seccion">Distribución de retornos semanales</h2>
+    <div class="histograma">
+      <div class="barra-vert">
+        <div class="conteo">283</div>
+        <div class="columna neg" style="height:100.0px;"></div>
+        <div class="etiqueta">< −5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">124</div>
+        <div class="columna neg" style="height:43.8px;"></div>
+        <div class="etiqueta">−5% a −2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">60</div>
+        <div class="columna neg" style="height:21.2px;"></div>
+        <div class="etiqueta">−2% a 0%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">20</div>
+        <div class="columna pos" style="height:7.1px;"></div>
+        <div class="etiqueta">0% a +2%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">6</div>
+        <div class="columna pos" style="height:2.1px;"></div>
+        <div class="etiqueta">+2% a +5%</div>
+      </div>
+      <div class="barra-vert">
+        <div class="conteo">4</div>
+        <div class="columna pos" style="height:1.4px;"></div>
+        <div class="etiqueta">> +5%</div>
+      </div>
+    </div>
+    <p class="parrafo" style="margin-top:14px;">Distribución sobre 497 compañías.</p>
+    <p class="parrafo lectura">La distribución muestra colas gruesas: una porción relevante de las compañías tuvo movimientos semanales superiores al 5% en cualquier dirección.</p>
+  </section>
+
+  <section class="seccion" id="movers">
+    <div class="num-badge"><span class="barra"></span><span class="num">08</span></div>
+    <h2 class="titulo-seccion">Ganadores y perdedores</h2>
+    <h3 class="subtitulo">Top 10 subas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>TSN</td>
+            <td>Tyson Foods</td>
+            <td>Consumer Staples</td>
+            <td class="positivo">+10.7%</td>
+          </tr>
+          <tr>
+            <td>HRL</td>
+            <td>Hormel Foods</td>
+            <td>Consumer Staples</td>
+            <td class="positivo">+6.6%</td>
+          </tr>
+          <tr>
+            <td>PANW</td>
+            <td>Palo Alto Networks</td>
+            <td>Information Technology</td>
+            <td class="positivo">+6.5%</td>
+          </tr>
+          <tr>
+            <td>TSCO</td>
+            <td>Tractor Supply</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+5.5%</td>
+          </tr>
+          <tr>
+            <td>GIS</td>
+            <td>General Mills</td>
+            <td>Consumer Staples</td>
+            <td class="positivo">+4.1%</td>
+          </tr>
+          <tr>
+            <td>PCG</td>
+            <td>PG&E Corporation</td>
+            <td>Utilities</td>
+            <td class="positivo">+4.0%</td>
+          </tr>
+          <tr>
+            <td>TJX</td>
+            <td>TJX Companies</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+3.9%</td>
+          </tr>
+          <tr>
+            <td>EIX</td>
+            <td>Edison International</td>
+            <td>Utilities</td>
+            <td class="positivo">+3.4%</td>
+          </tr>
+          <tr>
+            <td>TGT</td>
+            <td>Target Corporation</td>
+            <td>Consumer Staples</td>
+            <td class="positivo">+2.7%</td>
+          </tr>
+          <tr>
+            <td>DPZ</td>
+            <td>Domino's</td>
+            <td>Consumer Discretionary</td>
+            <td class="positivo">+2.0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subtitulo">Top 10 bajas</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Ticker</th><th>Compañía</th><th>Sector</th><th>Var. semanal</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>MU</td>
+            <td>Micron Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-23.6%</td>
+          </tr>
+          <tr>
+            <td>NVDA</td>
+            <td>Nvidia</td>
+            <td>Information Technology</td>
+            <td class="negativo">-22.9%</td>
+          </tr>
+          <tr>
+            <td>LITE</td>
+            <td>Lumentum</td>
+            <td>Information Technology</td>
+            <td class="negativo">-22.8%</td>
+          </tr>
+          <tr>
+            <td>FCX</td>
+            <td>Freeport-McMoRan</td>
+            <td>Materials</td>
+            <td class="negativo">-22.4%</td>
+          </tr>
+          <tr>
+            <td>MRVL</td>
+            <td>Marvell Technology</td>
+            <td>Information Technology</td>
+            <td class="negativo">-22.0%</td>
+          </tr>
+          <tr>
+            <td>INTU</td>
+            <td>Intuit</td>
+            <td>Information Technology</td>
+            <td class="negativo">-20.9%</td>
+          </tr>
+          <tr>
+            <td>AMD</td>
+            <td>Advanced Micro Devices</td>
+            <td>Information Technology</td>
+            <td class="negativo">-20.5%</td>
+          </tr>
+          <tr>
+            <td>HOOD</td>
+            <td>Robinhood Markets</td>
+            <td>Financials</td>
+            <td class="negativo">-20.2%</td>
+          </tr>
+          <tr>
+            <td>COIN</td>
+            <td>Coinbase</td>
+            <td>Financials</td>
+            <td class="negativo">-20.1%</td>
+          </tr>
+          <tr>
+            <td>FSLR</td>
+            <td>First Solar</td>
+            <td>Information Technology</td>
+            <td class="negativo">-19.7%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura" style="margin-top:10px;">Entre los extremos de la semana, Consumer Staples concentró 4 de los 10 mayores avances; Information Technology concentró 7 de las 10 mayores caídas.</p>
+  </section>
+
+  <section class="seccion" id="earnings">
+    <div class="num-badge"><span class="barra"></span><span class="num">09</span></div>
+    <h2 class="titulo-seccion">Temporada de resultados</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Reportes</div>
+        <div class="valor">11</div>
+      </div>
+      <div class="stat">
+        <div class="label">% de beats</div>
+        <div class="valor">82%</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sorpresa media</div>
+        <div class="valor positivo">+5.7%</div>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Ticker</th><th>Compañía</th><th>EPS real</th><th>EPS est.</th><th>Sorpresa</th><th>Reacción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>16 nov 2026</td>
+            <td>TSN</td>
+            <td>Tyson Foods</td>
+            <td>0.61</td>
+            <td>0.59</td>
+            <td class="positivo">+3.7%</td>
+            <td class="positivo">+8.7% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>17 nov 2026</td>
+            <td>DIS</td>
+            <td>Walt Disney Company (The)</td>
+            <td>1.77</td>
+            <td>1.69</td>
+            <td class="positivo">+4.7%</td>
+            <td class="negativo">-1.5% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>17 nov 2026</td>
+            <td>HD</td>
+            <td>Home Depot (The)</td>
+            <td>3.86</td>
+            <td>3.95</td>
+            <td class="negativo">-2.4%</td>
+            <td class="negativo">-2.4% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>17 nov 2026</td>
+            <td>NVDA</td>
+            <td>Nvidia</td>
+            <td>2.68</td>
+            <td>2.52</td>
+            <td class="positivo">+6.1%</td>
+            <td class="negativo">-3.3% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>18 nov 2026</td>
+            <td>LOW</td>
+            <td>Lowe's</td>
+            <td>3.10</td>
+            <td>2.91</td>
+            <td class="positivo">+6.5%</td>
+            <td class="positivo">+1.1% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>18 nov 2026</td>
+            <td>PANW</td>
+            <td>Palo Alto Networks</td>
+            <td>1.05</td>
+            <td>0.99</td>
+            <td class="positivo">+6.0%</td>
+            <td class="positivo">+17.0% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>18 nov 2026</td>
+            <td>TGT</td>
+            <td>Target Corporation</td>
+            <td>2.65</td>
+            <td>2.09</td>
+            <td class="positivo">+26.7%</td>
+            <td class="positivo">+4.0% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>18 nov 2026</td>
+            <td>TJX</td>
+            <td>TJX Companies</td>
+            <td>1.34</td>
+            <td>1.35</td>
+            <td class="negativo">-0.8%</td>
+            <td class="positivo">+8.0% (mismo día)</td>
+          </tr>
+          <tr>
+            <td>19 nov 2026</td>
+            <td>INTU</td>
+            <td>Intuit</td>
+            <td>2.91</td>
+            <td>2.75</td>
+            <td class="positivo">+5.8%</td>
+            <td class="negativo">-13.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>19 nov 2026</td>
+            <td>KEYS</td>
+            <td>Keysight Technologies</td>
+            <td>3.61</td>
+            <td>3.44</td>
+            <td class="positivo">+5.0%</td>
+            <td class="negativo">-8.7% (día sig.)</td>
+          </tr>
+          <tr>
+            <td>19 nov 2026</td>
+            <td>WMT</td>
+            <td>Walmart</td>
+            <td>0.65</td>
+            <td>0.64</td>
+            <td class="positivo">+1.2%</td>
+            <td class="negativo">-1.0% (mismo día)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="parrafo lectura">Reportaron 11 compañías del S&P 500 en la semana, con 82% superando el estimado de EPS y una sorpresa media de +5.7%. La proporción de beats fue alta, coherente con una temporada de resultados sólida.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>Semana reportada: 16 nov 2026 — 20 nov 2026</div>
+  <div class="disclaimer">Informe generado automáticamente con datos públicos. No constituye recomendación de inversión.</div>
+</footer>
+</body>
+</html>
